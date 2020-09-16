@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8c6323b5-279c-4a5f-b8eb-d9588af6d40e" name="默认更改列表" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="C:\Users\cdf\.m2\repository" />
+        <option name="mavenHome" value="C:/APP/java/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="C:\APP\java\apache-maven-3.6.3\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hZQih4hbblVxgcbuVBBUboVCgX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="project.structure.last.edited" value="模块" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\cdf\IdeaProjects\opencv-01\src\main\resources" />
+      <recent name="C:\Users\cdf\IdeaProjects\opencv-01\src\test\java" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\cdf\IdeaProjects\opencv-01\src\main\resources" />
+      <recent name="C:\Users\cdf\IdeaProjects\opencv-01\src\test\java" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.FaceDetTest">
+    <configuration name="FaceDetTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FaceDetTest" />
+      <module name="opencv-01" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=C:\APP\environment\opencv\build\java\x64;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HelloTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HelloTest" />
+      <module name="opencv-01" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=C:\APP\environment\opencv\build\java\x64;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.HelloTest" />
+      <item itemvalue="Application.FaceDetTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.FaceDetTest" />
+        <item itemvalue="Application.HelloTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8c6323b5-279c-4a5f-b8eb-d9588af6d40e" name="默认更改列表" comment="" />
+      <created>1600216262174</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600216262174</updated>
+      <workItem from="1600216266860" duration="7521000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="735" y="281" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600221429372">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="735" y="281" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1600221429372" />
+    <state x="1060" y="331" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1600221308777">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="1060" y="331" key="#com.intellij.ide.macro.MacrosDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1600221308777" />
+    <state x="817" y="291" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1600217329997">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="817" y="291" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1600217329997" />
+    <state x="706" y="216" key="#opencv-440.jar" timestamp="1600217182669">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="706" y="216" key="#opencv-440.jar/0.0.2048.1112@0.0.2048.1112" timestamp="1600217182669" />
+    <state x="579" y="240" key="#项目结构" timestamp="1600217815073">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="579" y="240" key="#项目结构/0.0.2048.1112@0.0.2048.1112" timestamp="1600217815073" />
+    <state x="1112" y="295" key="FileChooserDialogImpl" timestamp="1600217228837">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="1112" y="295" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1600217228837" />
+    <state width="1161" height="304" key="GridCell.Tab.0.bottom" timestamp="1600223343423">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1161" height="304" key="GridCell.Tab.0.bottom/0.0.2048.1112@0.0.2048.1112" timestamp="1600223343423" />
+    <state width="1161" height="304" key="GridCell.Tab.0.center" timestamp="1600223343423">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1161" height="304" key="GridCell.Tab.0.center/0.0.2048.1112@0.0.2048.1112" timestamp="1600223343423" />
+    <state width="1161" height="304" key="GridCell.Tab.0.left" timestamp="1600223343422">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1161" height="304" key="GridCell.Tab.0.left/0.0.2048.1112@0.0.2048.1112" timestamp="1600223343422" />
+    <state width="1161" height="304" key="GridCell.Tab.0.right" timestamp="1600223343423">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1161" height="304" key="GridCell.Tab.0.right/0.0.2048.1112@0.0.2048.1112" timestamp="1600223343423" />
+    <state x="812" y="116" key="SettingsEditor" timestamp="1600217434790">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="812" y="116" key="SettingsEditor/0.0.2048.1112@0.0.2048.1112" timestamp="1600217434790" />
+  </component>
+</project>
