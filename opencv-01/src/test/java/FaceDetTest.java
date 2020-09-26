@@ -33,10 +33,9 @@ class Det {
             Imgproc.rectangle(img, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 255, 0));
         }
         // 保存图像
-        String filename = "faceDetImg.png";
+        String filename = "./faceDetImg.png";
         System.out.println(String.format("Writing %s", filename));
         Imgcodecs.imwrite(filename, img);
-
     }
 }
 

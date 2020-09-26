@@ -39,28 +39,37 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../chinabank" />
     <property name="project.structure.last.edited" value="模块" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\cdf\IdeaProjects\opencv-01\src\main\resources" />
       <recent name="C:\Users\cdf\IdeaProjects\opencv-01\src\test\java" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\cdf\IdeaProjects\opencv-01\storage" />
       <recent name="C:\Users\cdf\IdeaProjects\opencv-01\src\main\resources" />
       <recent name="C:\Users\cdf\IdeaProjects\opencv-01\src\test\java" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FaceDetTest">
+  <component name="RunManager" selected="Application.Threshold">
     <configuration name="FaceDetTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FaceDetTest" />
+      <module name="opencv-01" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=C:\APP\environment\opencv\build\java\x64;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FilterTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FilterTest" />
       <module name="opencv-01" />
       <option name="VM_PARAMETERS" value="-Djava.library.path=C:\APP\environment\opencv\build\java\x64;" />
       <method v="2">
@@ -75,12 +84,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Threshold" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Threshold" />
+      <module name="opencv-01" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=C:\APP\environment\opencv\build\java\x64;" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.HelloTest" />
       <item itemvalue="Application.FaceDetTest" />
+      <item itemvalue="Application.FilterTest" />
+      <item itemvalue="Application.Threshold" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Threshold" />
+        <item itemvalue="Application.FilterTest" />
         <item itemvalue="Application.FaceDetTest" />
         <item itemvalue="Application.HelloTest" />
       </list>
@@ -96,7 +117,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600216262174</updated>
-      <workItem from="1600216266860" duration="7521000" />
+      <workItem from="1600216266860" duration="10689000" />
+      <workItem from="1600415657832" duration="1785000" />
+      <workItem from="1600567876975" duration="925000" />
+      <workItem from="1600574435317" duration="1200000" />
+      <workItem from="1600703082699" duration="2524000" />
+      <workItem from="1600744451625" duration="7688000" />
+      <workItem from="1600824271130" duration="1214000" />
+      <workItem from="1600997622675" duration="179000" />
+      <workItem from="1601111045037" duration="12310000" />
     </task>
     <servers />
   </component>
@@ -104,14 +133,22 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="735" y="281" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600221429372">
+    <state x="443" y="286" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601131765415">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="735" y="281" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1600221429372" />
-    <state x="1060" y="331" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1600221308777">
+    <state x="443" y="286" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1601131765415" />
+    <state x="402" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601125646805">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="1060" y="331" key="#com.intellij.ide.macro.MacrosDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1600221308777" />
+    <state x="402" y="365" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2048.1112@0.0.2048.1112" timestamp="1601125646805" />
+    <state x="1060" y="331" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1600786084152">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="1060" y="331" key="#com.intellij.ide.macro.MacrosDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1600786084152" />
+    <state x="469" y="279" key="#com.intellij.ide.util.MemberChooser" timestamp="1601125478762">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="469" y="279" key="#com.intellij.ide.util.MemberChooser/0.0.2048.1112@0.0.2048.1112" timestamp="1601125478762" />
     <state x="817" y="291" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog" timestamp="1600217329997">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
@@ -124,29 +161,49 @@
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="579" y="240" key="#项目结构/0.0.2048.1112@0.0.2048.1112" timestamp="1600217815073" />
-    <state x="1112" y="295" key="FileChooserDialogImpl" timestamp="1600217228837">
+    <state x="1112" y="295" key="FileChooserDialogImpl" timestamp="1600415783390">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="1112" y="295" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1600217228837" />
-    <state width="1161" height="304" key="GridCell.Tab.0.bottom" timestamp="1600223343423">
+    <state x="1112" y="295" key="FileChooserDialogImpl/0.0.2048.1112@0.0.2048.1112" timestamp="1600415783390" />
+    <state width="1342" height="260" key="GridCell.Tab.0.bottom" timestamp="1601131797371">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="1161" height="304" key="GridCell.Tab.0.bottom/0.0.2048.1112@0.0.2048.1112" timestamp="1600223343423" />
-    <state width="1161" height="304" key="GridCell.Tab.0.center" timestamp="1600223343423">
+    <state width="1342" height="260" key="GridCell.Tab.0.bottom/0.0.2048.1112@0.0.2048.1112" timestamp="1601131797371" />
+    <state width="1342" height="260" key="GridCell.Tab.0.center" timestamp="1601131797371">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="1161" height="304" key="GridCell.Tab.0.center/0.0.2048.1112@0.0.2048.1112" timestamp="1600223343423" />
-    <state width="1161" height="304" key="GridCell.Tab.0.left" timestamp="1600223343422">
+    <state width="1342" height="260" key="GridCell.Tab.0.center/0.0.2048.1112@0.0.2048.1112" timestamp="1601131797371" />
+    <state width="1342" height="260" key="GridCell.Tab.0.left" timestamp="1601131797371">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="1161" height="304" key="GridCell.Tab.0.left/0.0.2048.1112@0.0.2048.1112" timestamp="1600223343422" />
-    <state width="1161" height="304" key="GridCell.Tab.0.right" timestamp="1600223343423">
+    <state width="1342" height="260" key="GridCell.Tab.0.left/0.0.2048.1112@0.0.2048.1112" timestamp="1601131797371" />
+    <state width="1342" height="260" key="GridCell.Tab.0.right" timestamp="1601131797371">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="1161" height="304" key="GridCell.Tab.0.right/0.0.2048.1112@0.0.2048.1112" timestamp="1600223343423" />
-    <state x="812" y="116" key="SettingsEditor" timestamp="1600217434790">
+    <state width="1342" height="260" key="GridCell.Tab.0.right/0.0.2048.1112@0.0.2048.1112" timestamp="1601131797371" />
+    <state x="655" y="42" key="SettingsEditor" timestamp="1600228855202">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="812" y="116" key="SettingsEditor/0.0.2048.1112@0.0.2048.1112" timestamp="1600217434790" />
+    <state x="655" y="42" key="SettingsEditor/0.0.2048.1112@0.0.2048.1112" timestamp="1600228855202" />
+    <state x="708" y="155" width="632" height="801" key="find.popup" timestamp="1600789108511">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="708" y="155" width="632" height="801" key="find.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1600789108511" />
+    <state x="537" y="229" key="new project wizard" timestamp="1600997797023">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="537" y="229" key="new project wizard/0.0.2048.1112@0.0.2048.1112" timestamp="1600997797023" />
+    <state x="365" y="190" key="refactoring.ChangeSignatureDialog" timestamp="1601129259041">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="365" y="190" key="refactoring.ChangeSignatureDialog/0.0.2048.1112@0.0.2048.1112" timestamp="1601129259041" />
+    <state x="320" y="264" key="run.anything.popup" timestamp="1601129356322">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="320" y="264" key="run.anything.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1601129356322" />
+    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1601124885057">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="687" y="243" width="672" height="678" key="search.everywhere.popup/0.0.2048.1112@0.0.2048.1112" timestamp="1601124885057" />
   </component>
 </project>
