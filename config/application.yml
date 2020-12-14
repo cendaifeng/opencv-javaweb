@@ -1,0 +1,63 @@
+spring:
+  profiles:
+    active: dev
+
+
+---
+spring:
+  profiles: dev
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML
+
+  mvc:
+    #    view:
+    #      prefix: classpath:/templates/
+    #      suffix: .html
+    date-format: yyyy-MM-dd
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  servlet:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 10MB
+
+#  datasource:
+#    # 数据源基本配置
+#    username: cdf
+#    password: Qq030481603
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://rm-wz9mt4t1p8q7isu038o.mysql.rds.aliyuncs.com:3306/opencv
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    # 数据源其他配置
+#    initialSize: 5
+#    minIdle: 5
+#    maxActive: 20
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 1 FROM DUAL
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    poolPreparedStatements: true
+#    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#    filters: stat,wall
+#    maxPoolPreparedStatementPerConnectionSize: 20
+#    useGlobalDataSourceStat: true
+#    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+
+sever:
+  tomcat:
+    uri-encoding: UTF-8
+
+logging:
+  level:
+    com.cdf: trace
