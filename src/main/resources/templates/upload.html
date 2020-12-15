@@ -10,33 +10,32 @@
     <title>UPLOAD img</title>
 </head>
 <body>
-<form method="post" action="/upload" enctype="multipart/form-data">
-<!--    <input type="file" name="file" id="upload_file"><br/>-->
-<!--    <input type="submit" value="提交">-->
-</form>
-<form id="upload_file" enctype="multipart/form-data">
-    <p>请选择要上传的文件：</p>
-    <!--只能选择单个个文件-->
-    <p><input type="file" name="file" /></p>
-    <!--同时选择多个文件-->
-    <p><input type="file" name="file" multiple="multiple" value="批量处理" /></p>
-    <p><input id="submit_btn" type="button" class="btn" value="上传" /></p>
+<form enctype="multipart/form-data">
+    请选择要上传的文件：<br/>
+    <input id="file" type="file" multiple="multiple"/><br/>
+    <input id="submit_btn" type="button" value="上传"/>
 </form>
 </body>
 <script src="/static/asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 <script src="/static/asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
-<script th:inline="javascript">
+<script inline="javascript">
 
     $("#submit_btn").click(function () {
+        var formData = new FormData();
+        var fileobjs = $("#file")[0].files;  // $("#file")[0]将jquery对象转换为dom对象，使用jquery的方法.get(0)也可以
+        for (var i = 0; i < fileobjs.length; i++) {
+            formData.append("imgs", fileobjs[i]);  // append方法使用相同键追加元素，最后会被输出为MultipartFile数组
+        }
+
         $.ajax({
             type: 'post',
             url: "/upload",
-            dataType:'json',
-            async: false,
-            data: new FormData($("#upload_file")[0]),
-            processData : false,  // 禁止去处理发送的数据，对data参数进行序列化处理
+            async: false,  // 设置为同步执行
+            data: formData,
+            processData : false,  // 禁止去处理发送的数据，对data参数进行序列化处理时须设置
             contentType : false,  // 禁止去设置Content-Type请求头
             success: function (res) {
+                alert(res);
             },
             error: function (e) {
             }

@@ -12,14 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 @Controller
@@ -59,9 +54,10 @@ public class UploadController {
                 f.transferTo(dest);
                 LOGGER.info("==upload success==");
 
-                if (!userSessionMap.containsKey(id))
-                    userSessionMap.put(id, new ArrayList<>()).add(fileName);
-                else {
+                if (!userSessionMap.containsKey(id)) {
+                    userSessionMap.put(id, new ArrayList<>(Arrays.asList(fileName)));
+                    size = 1;
+                } else {
                     ArrayList<String> list = userSessionMap.get(id);
                     list.add(fileName);
                     size = list.size();
@@ -83,28 +79,22 @@ public class UploadController {
         return "已清除用户图片映射";
     }
 
-    @GetMapping("/process")
+    @GetMapping("/preview")
     public String processImgs(HttpSession session, Model model) {
         String id = session.getId();
         ArrayList<String> list = userSessionMap.get(id);
         if (list == null)
-            return "process";
-//
-//        try {
-//            String filePath = ResourceUtils.getURL("classpath:").getPath()+"/users/";
-//            File fp = new File(filePath);
-//            if(!fp.exists())
-//                fp.mkdir();
-//
-//            for (String img : list) {
-//                File file = new File(filePath, img);
-//                model.addAttribute(file);
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            LOGGER.error(e.toString(), e);
-//        }
-        return "process";
+            return "preview";
+
+        ArrayList<String> pathList = new ArrayList<>();
+        String filePath = "";
+        for (String img : list) {
+            filePath = "user/"+img;
+            pathList.add(filePath);
+        }
+        model.addAttribute("pathList",pathList);
+
+        return "preview";
     }
 
 }
