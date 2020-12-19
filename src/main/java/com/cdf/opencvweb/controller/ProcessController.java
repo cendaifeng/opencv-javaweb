@@ -37,30 +37,32 @@ public class ProcessController {
     @ResponseBody
     public String process(@RequestParam("method") String method,
                           ModelMap modelMap) {
-        modelMap.getAttribute("pathList")
+        modelMap.getAttribute("pathList");
+        String pathList = "";
         if (pathList == null) {
             return "未有照片选中";
         }
-        ArrayList<String> processList = processService.process(pathList, method);
+        ArrayList<String> processList = processService.prxocess(pathList, method);
         if (processList == null) {
             return "处理出错";
         }
-        modelMap.remove("pathList")
-        modelMap.Attribute("pathList", processList);
+        modelMap.remove("pathList");
+        modelMap.addAttribute("pathList", processList);
         return "成功";
     }
 
     @GetMapping("/pResult")
-    public String processImgs(@RequestParam("pathList") List<String> pathList, Model model) {
-        if (pathList == null)
+    public String processImgs(@RequestParam("resultList") List<String> resultList, Model model) {
+        System.out.println(resultList);
+        if (resultList == null)
             return "preview";
 
         String filePath = "";
-        for (String img : pathList) {
-            filePath = "user/"+img;
-            pathList.add(filePath);
+        for (String img : resultList) {
+            filePath = "/user/"+img;
+            resultList.add(filePath);
         }
-        model.addAttribute("pathList",pathList);
+        model.addAttribute("pathList",resultList);
         return "preview";
     }
 }

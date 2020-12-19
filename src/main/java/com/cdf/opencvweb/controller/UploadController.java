@@ -26,7 +26,7 @@ public class UploadController {
 
     @GetMapping("/upload")
     public String upload() {
-        return "upload";
+        return "jj";
     }
 
     @PostMapping("/upload")
@@ -39,7 +39,7 @@ public class UploadController {
         LOGGER.info(id);
 
         try {
-            String filePath = ResourceUtils.getURL("classpath:").getPath()+"/users/";
+            String filePath = ResourceUtils.getURL("classpath:").getPath()+"static/users/";
             File fp = new File(filePath);
             if(!fp.exists())
                 fp.mkdir();
@@ -89,7 +89,7 @@ public class UploadController {
         ArrayList<String> pathList = new ArrayList<>();
         String filePath = "";
         for (String img : list) {
-            filePath = "user/"+img;
+            filePath = "/user/"+img;
             pathList.add(filePath);
         }
         model.addAttribute("pathList",pathList);

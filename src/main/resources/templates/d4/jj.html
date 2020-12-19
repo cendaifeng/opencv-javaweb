@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<style type="text/css">
+    .float{
+        float:left;
+        width : 200px;
+        height: 200px;
+        overflow: hidden;
+        border: 1px solid #CCCCCC;
+        border-radius: 10px;
+        padding: 5px;
+        margin: 5px;
+    }
+    img{
+        position: relative;
+    }
+    .result{
+        width: 200px;
+        height: 200px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+ 
+ 
+    #file_input{
+        display: none;
+    }
+ 
+ 
+    .delete{
+        width: 200px;
+        height:200px;
+        position: absolute;
+        text-align: center;
+        line-height: 200px;
+        z-index: 10;
+        font-size: 30px;
+        background-color: rgba(255,255,255,0.8);
+        color: #777;
+        opacity: 0;
+        transition-duration: 0.7s;
+        -webkit-transition-duration: 0.7s;
+    }
+ 
+ 
+    .delete:hover{
+        cursor: pointer;
+        opacity: 1;
+    }
+ 
+  
+ 
+</style>
+
+
+<body background="t5.jpeg" style=" background-repeat:no-repeat ;background-size:100% 120%">
+
+<table border="0" align="center" bordercolor=""; cellspacing="0" height="700px" align="middle">
+	<tr>
+		<td rowspan="1" colspan="1"  align="center" bgcolor="blue" style="color: white;"><h2>主页</h2></td>
+		<td rowspan="1" colspan="1" width="100px" align="center" bgcolor="blue" style="color: white;"><h2>功能介绍</h2></td>
+		<td rowspan="1" colspan="1" width="100px" align="center" bgcolor="blue" style="color: white;"><h2>Opencv官网入口</h2></td>
+		<td rowspan="1" colspan="1" width="500px" align="center" bgcolor="blue" style="color: white;"><h2>关于我们</h2></td>
+		
+			
+		</td>
+		
+	</tr>
+    <tr>
+        <td rowspan="6" width="100px">
+        	
+        	
+        	<style>
+        		* {
+            margin: 0;
+            padding: 0;
+        }
+
+        .block {
+            width: 400px;
+            height: 700px;
+            border: 1px solid black;
+            margin: 0px auto;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .box_big {
+            position: absolute;
+            width: 4200px;  
+            height: 400px;
+
+        }
+
+        .nav {
+            transition: margin-left 0.5s linear;
+        }
+
+        .box {
+            width: 700px;
+            height: 400px;
+            float: left;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .spot {
+            position: absolute;
+            width: 100%;
+            text-align: right;
+            bottom: 5px;
+        }
+
+        .spot_list {
+
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            text-align: center;
+            border: 1px solid gray;
+            border-radius: 5px;
+            line-height: 30px;
+            font-weight: bolder;
+            margin: 10px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            height: 80px;
+            position: absolute;
+            margin: 0 auto;
+            top: 160px;
+        }
+
+        .left_btn, .right_btn {
+            width: 0px;
+            height: 0px;
+            z-index: 15;
+            background: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            line-height: 0px;
+            border-radius: 0px;
+
+        }
+
+        .left_btn {
+            float: left;
+        }
+
+        .right_btn {
+            float: right;
+        }
+        	</style>
+        	<div class="block">
+    <div class="box_big ">
+        <div class="box"><img src="t1.jpeg" /style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t2.jpeg" /style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t3.jpeg" /style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t4.jpeg" /style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t5.jpeg" /style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t1.jpeg" /style="height: auto;width: auto;"></div>
+    </div>
+    <div class="spot">
+        <div class="spot_list">1</div>
+        <div class="spot_list">2</div>
+        <div class="spot_list">3</div>
+        <div class="spot_list">4</div>
+        <div class="spot_list">5</div>
+    </div>
+    <div class="btn">
+        <div class="left_btn"><span> < </span></div>
+        <div class="right_btn"><span> > </span></div>
+    </div>
+    <script>
+//首先获取元素，这里获取了所有需要的元素。
+    var box = document.getElementsByClassName("box_big")[0];
+    var spot = document.getElementsByClassName("spot_list");
+    var block = document.getElementsByClassName("block")[0];
+    var left_btn = document.getElementsByClassName("left_btn")[0];
+    var right_btn = document.getElementsByClassName("right_btn")[0];
+    var time = null;
+    spot[0].style.background = "rgba(91,91,91,0.8)";
+    var count = 0;
+    showtime();
+    //鼠标进入计时器停止
+    block.onmouseenter = function () {
+        clearInterval(time);
+    };
+    //鼠标出来计时器打开
+    block.onmouseleave = function () {
+        showtime();
+    };
+    //点的事件
+    for (var i = 0; i < spot.length; i++) {
+        spot[i].index = i;
+        spot[i].onmouseenter = function () {
+            spot[count].style.background = "rgba(255, 255, 255, 0.3)";
+            this.style.background = "rgba(91,91,91,0.8)";
+            count = this.index;
+            box.style.marginLeft = (count * -700) + "px";
+        }
+
+    }
+   function mate() {
+        box.className = "box_big nav";
+        spot[count].style.background = "rgba(255, 255, 255, 0.3)";
+        count++;
+        spot[count > box.children.length - 2 ? 0 : count].style.background = "rgba(91,91,91,0.8)";
+        box.style.marginLeft = (count * -700) + "px";
+        setTimeout(function () {
+            if (count > box.children.length - 2) {
+                count = 0;
+                box.className = "box_big";
+                box.style.marginLeft = "0px"
+            }
+        }, 500)
+    }
+    left_btn.onclick = function () { 
+        mate();
+    };
+    //图片右边划
+    right_btn.onclick = function () {
+        spot[count].style.backgroundColor = "rgba(255,255,255,0.3)";
+        count--;
+        if (count < 0) {
+            box.className = "box_big";
+            count = box.children.length - 2;
+            box.style.marginLeft = "-3500px";
+        }
+        setTimeout(function () {
+            box.className = "box_big nav";
+            box.style.marginLeft = (-700 * count) + "px";
+            spot[count].style.backgroundColor = "rgba(91,91,91,0.8)";
+        }, 1);
+    };
+    //计时器
+    function showtime() {
+        time = setInterval(function () {
+            mate();
+        }, 1000);
+    }
+    //正常滚动
+  
+</script>
+</div>
+        </td>
+        <td rowspan="2" width="400px" bgcolor="darkblue" style="color:white;">
+        	 <h4>请选择要上传的文件：<br/></h4>
+        </td> 
+        <td rowspan="2" width="400px" bgcolor="darkblue" style="color:white;"><h4>OpenCv经典图片案例显示:<br/></h4></td>
+        <td rowspan="2" width="100px"  bgcolor="darkblue" style="color:white;"><h4><br/></h4></td>
+    </tr> 
+    <tr>
+       
+     <td rowspan="1" width="100px">  </td>
+    </tr>
+    <tr>
+        <td rowspan="4" width="100px" background="22.jpeg" style=" background-repeat:no-repeat ;background-size:100% 120%>
+        
+        	
+        	<form enctype="multipart/form-data">
+     
+     <p align="middle"><input id="file" type="file" multiple="multiple" style="font-size: large; size: a5; color: white;"/></p><br/>
+    <br/>
+    <br/>
+    <br/>
+    <p align="middle"><input id="submit_btn" type="button" value="上传" align="middle" style="font-size: large; size: a5;" /></p>
+                <button id="select">(重新)选择图片</button>
+                <button id="add">(追加)图片</button>
+             
+
+
+
+
+</form>
+
+        </td>
+        <td rowspan="7" width="500px" colspan="7">
+        	<div id="slide">
+    <ul id="photos">
+        <li><img src="111.png"></li>
+        <li><img src="222.png"></li>
+        <li><img src="333.png"></li>
+    </ul>
+    
+<style type="text/css">
+    #slide{    
+        overflow: hidden; /*溢出则隐藏*/
+        width:600px;    /*要显示图片框的大小*/
+        height:600px;
+        position: relative;    /*相对定位*/
+    }
+/*图片列表*/
+    #photos{
+        padding:0px;    /*迷之边框，不明原因*/
+        width:5000px; /*要足够大*/
+        height: 5000px;
+        position: absolute;    /*绝对定位*/
+    }
+    #photos li{
+        float:left;    /*图片横向浮动*/
+        width:600px;
+        height:900px;
+        list-style: none;
+        
+    }
+    </style>
+    <script>
+    function slide_photos(){
+	var photos = document.getElementById("photos");
+    var pli = photos.getElementsByTagName("li");
+ 
+	var left = photos.offsetLeft;    //图片距离显示框的左边距
+    var width = pli[0].offsetWidth;    //一张图片的宽度
+    var lis = pli.length;    //图片列表长度
+ 
+    //如果图片距离显示框边距大于图片总长度-1，则重新设置位置， 否则递增；
+	if(-left>= (lis-1)*width){
+		photos.style.left= 0+ "px";
+		
+	}else{
+		left-= width;	
+		photos.style.left= left+ "px";
+	}
+}
+
+//设置重新加载时间，2000毫秒
+window.setInterval("slide_photos()",2000);
+ </script>
+   
+        </td>
+        <td rowspan="6" colspan="7"  height="600px" bgcolor="blue" style="color: white;"><h1>下</br>
+			拉</br>
+			进</br>
+			行</br>
+			图</br>
+			片</br>
+			预</br>
+			览</br>
+			及</br>
+			
+			
+			处</br>
+			理</br>
+			
+		</h1>
+       
+    </tr>
+    <tr>
+    	<div>
+    	
+    		</style>
+    		
+    			
+        <td rowspan="6" width="100px" >
+        	 
+        	
+        
+        		
+        </td>
+        
+    </tr>
+    <tr>
+        <td rowspan="1" width="100px"></td>
+        <td width="100px">&nbsp;</td>
+    </tr>
+    <tr>
+    	
+        <td width="100px"  id="ssh"></td>
+       
+    </tr>
+</table>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+<h1 align="middle" style="color: black;">请选择您需要的功能（可多选)</h1>
+	<form onsubmit="return false">
+	
+<p> <h2 align="middle" style="color: black;">基础处理调整</p></h2>
+<ul>
+		
+
+	<h4>
+     <input type="checkbox" name="box1" id="box1" value="1" onclick="check()">旋转
+ 
+     <select name="text" id="text" disabled="disabled">
+     	<option>旋转角度</option>
+     	<option>90º</option>
+     	<option>180º</option>
+     	<option>270º</option>
+     </select>
+     <input type="checkbox" id="box2" name="box2" value="layer2" onclick="check()">平移(x:  ,y:)
+     <input type="text" id="text1" name="text1" disabled="disabled"/>
+     <input type="checkbox" id="box3" name="box3" value="layer3" onclick="check()">缩放
+      <select name="text2" id="text2" disabled="disabled" style="width: 150px;">
+     <option>缩放比例</option>
+     	<option>25%</option>
+     	<option>50%</option>
+     	<option>150%</option>
+     	<option>200%</option>
+     </select>
+     <input type="checkbox" name="box4" id="box4"  value="layer3" onclick="check()">对比度
+     <select name="text3" id="text3" disabled="disabled" style="width: 100px;">
+     <option>level</option>
+     	<option>-3</option>
+     	<option>-2</option>
+     	<option>-2</option>
+     	<option>-1</option>
+     	<option>0</option>
+     	<option>+1</option>
+     	<option>+2</option>
+     	<option>+3</option>
+     </select>
+     <input type="checkbox" name="box5" id="box5"  value="layer3" onclick="check()">亮度
+     <select name="text4" id="text4" disabled="disabled" style="width: 100px;">
+     <option>level</option>
+     	<option>-3</option>
+     	<option>-2</option>
+     	<option>-2</option>
+     	<option>-1</option>
+     	<option>0</option>
+     	<option>+1</option>
+     	<option>+2</option>
+     	<option>+3</option>
+     </select>
+     <input type="checkbox" name="box6" id="box6"  value="layer3" onclick="check()">曝光度
+     <select name="text5" id="text5" disabled="disabled" style="width: 100px;">
+     <option>level</option>
+     	<option>-3</option>
+     	<option>-2</option>
+     	<option>-2</option>
+     	<option>-1</option>
+     	<option>0</option>
+     	<option>+1</option>
+     	<option>+2</option>
+     	<option>+3</option>
+     </select>
+    </p>
+</ul>
+
+<p align="middle"><h2 align="middle" style="color: black;">高级处理调整</p></h2>
+<ul>
+    <p> <input type="checkbox" name="box7" id="box7"  value="layer3" onclick="check()" >图像二值化(低阈值,高阈值)
+         <input type="text" id="text6" name="text6" disabled="disabled"/>
+    <input type="checkbox" name="box8" id="box8"  value="layer3" onclick="check()">色彩抖动(低阈值 ,高阈值)
+    <input type="text" id="text7" name="text7" disabled="disabled"/>
+   <input type="checkbox" name="box9" id="box9"  value="layer3" onclick="check()">开闭运算（膨胀与腐蚀）(低阈值 ,高阈值)</p>
+   <input type="text" id="text8" name="text8" disabled="disabled"/>
+</ul>
+<p><h2 align="middle" style="color: black;">滤波调整</p></h2>
+<ul>
+    <p> <input type="checkbox" name="box10" id="box10"  value="layer3" onclick="check()">可调参数的高斯滤波
+     <select name="text9" id="text9" disabled="disabled" style="width: 150px;">
+     <option>核大小kernelSize</option>
+     	<option>25%</option>
+     	<option>50%</option>
+     	<option>150%</option>
+     	<option>200%</option>
+     </select>
+     <input type="checkbox" name="box11" id="box11"  value="layer3" onclick="check()">中指滤波
+      <select name="text10" id="text10" disabled="disabled" style="width: 150px;">
+     <option>核大小kernelSize</option>
+     	<option>25%</option>
+     	<option>50%</option>
+     	<option>150%</option>
+     	<option>200%</option>
+     </select>
+    <input type="checkbox" name="box12" id="box12"  value="layer3" onclick="check()">均值滤波</p>
+     <select name="text11" id="text11" disabled="disabled" style="width: 150px;">
+     <option>核大小kernelSize</option>
+     	<option>25%</option>
+     	<option>50%</option>
+     	<option>150%</option>
+     	<option>200%</option>
+     </select>
+</ul>
+
+	<p><h2 align="middle" style="color: black;">检测与提取</p></h2>
+	<ul>
+    <p> <input type="checkbox" name="checkbox4" value="layer1" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')" >基于不同算子的边缘检测
+     <input type="checkbox" name="checkbox4" value="layer2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')">对象检测
+    <input type="checkbox" name="checkbox" value="layer3" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')">特定区域的检测与提取</p>
+</ul>
+<p align="middle"><h2 align="middle" style="color: black;"><button type="submit" id="sbtn" onclick="cc()">提交数据</button></h2></p>
+
+</h4>
+</iframe>
+ </form>
+ 
+<script> 
+ 
+	var box1 = document.getElementById("box1");
+	var box2 = document.getElementById("box2");
+function check()   
+{ 
+if(box1.checked){ 
+document.getElementById("text").disabled=false; 
+} else{ 
+document.getElementById("text").disabled=true; 
+ 
+} 
+if(box2.checked){ 
+document.getElementById("text1").disabled=false; 
+} else{ 
+document.getElementById("text1").disabled=true; 
+ 
+} 
+if(box3.checked){ 
+document.getElementById("text2").disabled=false; 
+} else{ 
+document.getElementById("text2").disabled=true; 
+ 
+} 
+if(box4.checked){ 
+document.getElementById("text3").disabled=false; 
+} else{ 
+document.getElementById("text3").disabled=true; 
+ 
+} 
+if(box5.checked){ 
+document.getElementById("text4").disabled=false; 
+} else{ 
+document.getElementById("text4").disabled=true; 
+ 
+} 
+if(box6.checked){ 
+document.getElementById("text5").disabled=false; 
+} else{ 
+document.getElementById("text5").disabled=true; 
+ 
+} 
+if(box7.checked){ 
+document.getElementById("text6").disabled=false; 
+} else{ 
+document.getElementById("text6").disabled=true; 
+ 
+} 
+if(box8.checked){ 
+document.getElementById("text7").disabled=false; 
+} else{ 
+document.getElementById("text7").disabled=true; 
+ 
+} 
+if(box9.checked){ 
+document.getElementById("text8").disabled=false; 
+} else{ 
+document.getElementById("text8").disabled=true; 
+ 
+} 
+if(box10.checked){ 
+document.getElementById("text9").disabled=false; 
+} else{ 
+document.getElementById("text9").disabled=true; 
+ 
+} 
+if(box11.checked){ 
+document.getElementById("text10").disabled=false; 
+} else{ 
+document.getElementById("text10").disabled=true; 
+ 
+} 
+if(box12.checked){ 
+document.getElementById("text11").disabled=false; 
+} else{ 
+document.getElementById("text11").disabled=true; 
+ 
+} 
+}
+	</script>
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="11.js" type="text/javascript"></script>
+<script src="22.js" type="text/javascript"></script>
+<script src="33.js" type="text/javascript"></script>
+<script src="55.js" type="text/javascript"></script>
+	</body>
+	
+</html>
+
+

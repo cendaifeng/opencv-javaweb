@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,11 +10,16 @@
     <title>UPLOAD img</title>
 </head>
 <body>
-<form enctype="multipart/form-data">
-    请选择要上传的文件：<br/>
-    <input id="file" type="file" multiple="multiple"/><br/>
-    <input id="submit_btn" type="button" value="上传"/>
-</form>
+
+    <form enctype="multipart/form-data">
+        请选择要上传的文件：<br/>
+        <input id="file" type="file" multiple="multiple"/><br/>
+        <input id="submit_btn" type="button" value="上传"/>
+    </form>
+    <form method="get" action="/preview">
+        <input type="submit" value="预览">
+    </form>
+
 </body>
 <script src="/static/asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 <script src="/static/asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>

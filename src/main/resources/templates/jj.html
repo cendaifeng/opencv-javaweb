@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<table border="0" align="center" bordercolor="" ; cellspacing="0" height="700px" align="middle">
+    <tr>
+        <td rowspan="1" width="100px" align="center" bgcolor="blue" style="color: white;"><h1>主页</h1></td>
+        <td rowspan="1" width="100px" align="center" bgcolor="blue" style="color: white;"><h1>功能介绍</h1></td>
+        <td rowspan="1" width="100px" align="center" bgcolor="blue" style="color: white;"><h1>Opencv官网入口</h1></td>
+        <td rowspan="1" width="500px" align="center" bgcolor="blue" style="color: white;"><h1>关于我们</h1></td>
+    </tr>
+    <tr>
+        <td rowspan="6" width="100px">
+            <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .block {
+                    width: 400px;
+                    height: 700px;
+                    border: 1px solid black;
+                    margin: 0px auto;
+                    position: relative;
+                    overflow: hidden;
+                    box-sizing: border-box;
+                }
+
+                .box_big {
+                    position: absolute;
+                    width: 4200px;
+                    height: 400px;
+
+                }
+
+                .nav {
+                    transition: margin-left 0.5s linear;
+                }
+
+                .box {
+                    width: 700px;
+                    height: 400px;
+                    float: left;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .spot {
+                    position: absolute;
+                    width: 100%;
+                    text-align: right;
+                    bottom: 5px;
+                }
+
+                .spot_list {
+
+                    width: 30px;
+                    height: 30px;
+                    font-size: 20px;
+                    text-align: center;
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    line-height: 30px;
+                    font-weight: bolder;
+                    margin: 10px;
+                    display: inline-block;
+                    background: rgba(255, 255, 255, 0.3);
+                }
+
+                .btn {
+                    width: 100%;
+                    height: 80px;
+                    position: absolute;
+                    margin: 0 auto;
+                    top: 160px;
+                }
+
+                .left_btn, .right_btn {
+                    width: 0px;
+                    height: 0px;
+                    z-index: 15;
+                    background: rgba(255, 255, 255, 0.3);
+                    text-align: center;
+                    line-height: 0px;
+                    border-radius: 0px;
+
+                }
+
+                .left_btn {
+                    float: left;
+                }
+
+                .right_btn {
+                    float: right;
+                }
+            </style>
+            <div class="block">
+                <div class="box_big ">
+                    <div class="box"><img src="t1.jpeg" style="height: auto;width: auto;"></div>
+                    <div class="box"><img src="t2.jpeg" style="height: auto;width: auto;"></div>
+                    <div class="box"><img src="t3.jpeg" style="height: auto;width: auto;"></div>
+                    <div class="box"><img src="t4.jpeg" style="height: auto;width: auto;"></div>
+                    <div class="box"><img src="t5.jpeg" style="height: auto;width: auto;"></div>
+                    <div class="box"><img src="t1.jpeg" style="height: auto;width: auto;"></div>
+                </div>
+                <div class="spot">
+                    <div class="spot_list">1</div>
+                    <div class="spot_list">2</div>
+                    <div class="spot_list">3</div>
+                    <div class="spot_list">4</div>
+                    <div class="spot_list">5</div>
+                </div>
+                <div class="btn">
+                    <div class="left_btn"><span> < </span></div>
+                    <div class="right_btn"><span> > </span></div>
+                </div>
+                <script>
+                    //首先获取元素，这里获取了所有需要的元素。
+                    var box = document.getElementsByClassName("box_big")[0];
+                    var spot = document.getElementsByClassName("spot_list");
+                    var block = document.getElementsByClassName("block")[0];
+                    var left_btn = document.getElementsByClassName("left_btn")[0];
+                    var right_btn = document.getElementsByClassName("right_btn")[0];
+                    var time = null;
+                    spot[0].style.background = "rgba(91,91,91,0.8)";
+                    var count = 0;
+                    showtime();
+                    //鼠标进入计时器停止
+                    block.onmouseenter = function () {
+                        clearInterval(time);
+                    };
+                    //鼠标出来计时器打开
+                    block.onmouseleave = function () {
+                        showtime();
+                    };
+                    //点的事件
+                    for (var i = 0; i < spot.length; i++) {
+                        spot[i].index = i;
+                        spot[i].onmouseenter = function () {
+                            spot[count].style.background = "rgba(255, 255, 255, 0.3)";
+                            this.style.background = "rgba(91,91,91,0.8)";
+                            count = this.index;
+                            box.style.marginLeft = (count * -700) + "px";
+                        }
+                    }
+                    //图片左边划
+                    left_btn.onclick = function () {
+                        mate();
+                    };
+                    //图片右边划
+                    right_btn.onclick = function () {
+                        spot[count].style.backgroundColor = "rgba(255,255,255,0.3)";
+                        count--;
+                        if (count < 0) {
+                            box.className = "box_big";
+                            count = box.children.length - 2;
+                            box.style.marginLeft = "-3500px";
+                        }
+                        setTimeout(function () {
+                            box.className = "box_big nav";
+                            box.style.marginLeft = (-700 * count) + "px";
+                            spot[count].style.backgroundColor = "rgba(91,91,91,0.8)";
+                        }, 1);
+                    };
+                    //计时器
+                    function showtime() {
+                        time = setInterval(function () {
+                            mate();
+                        }, 1000);
+                    }
+                    //正常滚动
+                    function mate() {
+                        box.className = "box_big nav";
+                        spot[count].style.background = "rgba(255, 255, 255, 0.3)";
+                        count++;
+                        spot[count > box.children.length - 2 ? 0 : count].style.background = "rgba(91,91,91,0.8)";
+                        box.style.marginLeft = (count * -700) + "px";
+                        setTimeout(function () {
+                            if (count > box.children.length - 2) {
+                                count = 0;
+                                box.className = "box_big";
+                                box.style.marginLeft = "0px"
+                            }
+                        }, 500)
+                    }
+                </script>
+            </div>
+        </td>
+        <td rowspan="2" width="400px" bgcolor="darkblue" style="color:white;">
+            <h4>请选择要上传的文件：<br/></h4>
+        </td>
+        <td rowspan="2" width="400px" bgcolor="darkblue" style="color:white;">
+            <h4>请挑选要进行图片增强的功能：<br/></h4>
+        </td>
+        <td rowspan="2" width="100px" bgcolor="darkblue" style="color:white;">
+            <h4>图片显示:<br/></h4>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="1" width="100px"></td>
+    </tr>
+    <tr>
+        <td rowspan="4" width="100px" background="22.jpeg" style="height: 600px;">
+            <form enctype="multipart/form-data">
+
+                <p align="middle"><input id="file" type="file" multiple="multiple"
+                                         style="font-size: large; size: a5; color: white;"/></p><br/>
+                <br/>
+                <br/>
+                <br/>
+                <p align="middle"><input id="submit_btn" type="button" value="上传" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+            </form>
+        </td>
+        <td rowspan="4" width="100px" background="33.jpg">
+            <form>
+
+                <p align="middle"><input type="button" value="旋转" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="平移" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="缩放" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="截切" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="对比度调整" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="亮度调整" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="曝光度调整" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="图像二值化" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="色彩抖动" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="开闭运算" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="可调参数的高斯滤波" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="中指滤波" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="均值滤波" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="基于不同算子的边缘检测" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+
+                <p align="middle"><input type="button" value="对象检测" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+                <p align="middle"><input type="button" value="特定区域的检测" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+                <p align="middle"><input type="button" value="将图片矩阵以txt的格式输出" align="middle"
+                                         style="font-size: large; size: a5;"/></p>
+            </form>
+        </td>
+
+    </tr>
+    <tr>
+        <td rowspan="1" width="100px"></td>
+        <td width="100px">&nbsp;</td>
+    </tr>
+    <tr>
+        <td rowspan="1" width="100px"></td>
+        <td width="100px">&nbsp;</td>
+    </tr>
+    <tr>
+        <td width="100px">&nbsp;</td>
+    </tr>
+</table>
+
+</body>
+</html>
