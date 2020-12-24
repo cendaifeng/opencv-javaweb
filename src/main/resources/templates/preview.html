@@ -10,44 +10,65 @@
     <title>PREVIEW</title>
 </head>
 <body>
-<div class="d-flex w-100 h-100 flex-column justify-content-between">
-
-    <div id="imgs" class="d-flex justify-content-around align-items-center" style="height: 200px;">
-        <div th:each="path : ${pathList}">
-
-            <div class="flex-item">
-                <img class="mb-4" th:src="@{{path}(path=${path})}" height="185">
-            </div>
-
-
-        </div>
-
+<div class="d-flex w-100 h-100 flex-column">
+    <div class="d-flex mb-4 w-25 align-self-end">
+        <!-- 全选图片按钮 -->
+        <input id="checkAll_btn" type="button" value="全选"/>
+        <input id="check_all" type="checkbox" hidden="hidden"/>
+        <!-- 确认跳转到处理页面 -->
+        <form id="process_from" action="/process" method="post">
+            <input name="imgs" hidden="hidden"/>
+            <input name="_method" value="put" hidden="hidden"/>
+            <input id="process_btn" type="button" value="确定"/>
+        </form>
     </div>
-
+    <!-- 将request域中的图片路径取出展示 -->
+    <div class="d-flex w-25 justify-content-between align-items-center" th:each="path : ${pathList}">
+        <!-- 将路径数据暂存在img标签的data中 -->
+        <img class="d-flex" th:src="@{{path}(path=${path})}" height="250" alt="" th:attr="data-path=${path}">
+        <input type='checkbox' class='check_item'/>
+    </div>
 </div>
 
 </body>
 <script src="/static/asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 <script src="/static/asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
-<script inline="javascript">
+<script th:inline="javascript">
 
-    showimgs();
+    /* 全选功能 */
+    let $checkAll = $("#check_all");
+    $("#checkAll_btn").click(function () {
+        $checkAll.prop("checked", !$checkAll.prop("checked"));
+        // 对于原生 dom，attr 获取自定义的值，prop 获取 dom 原生属性的值
+        $(".check_item").prop("checked", $checkAll.prop("checked"));
+    });
+    // check_item 关联 check_all
+    $(document).on("click", ".check_item", function() {
+        let flag = $(".check_item:checked").length == $(".check_item").length;
+        $checkAll.prop("checked", flag);
+    });
 
-    function showimgs() {
-        // var arr = [[${pathList}]];
-        // $.each(arr, function(i){
-        //     alert(i);
-        // });
+    /* 确认待处理图片 */
+    $("#process_btn").click(function () {
 
-        // result = '<div class="delete">delete</div><div class="result"><img class="subPic" src="'+this.result+'" alt="'+this.fileName+'"/></div>';
-        // var div = document.createElement('div');
-        //
-        // div.innerHTML =result;
-        // div['className'] = 'float';
-        // document.getElementsByTagName('body')[0].appendChild(div);  　　//插入dom树
-        //
-        // var checkbox_item = $("<th></th>").append("<input type='checkbox' class='check_item' hidden='true'/>");
-    }
+        let imgsList = new Array();
+        $.each($(".check_item:checked"), function () {
+            let src = $(this).parent("div").find("img:first").data("path");
+            imgsList.push(src);
+        });
+
+        if ($(".check_item:checked").length < 1) {
+            alert("未选择员工！")
+            return;
+        }
+        if (confirm("共处理『"+$(".check_item:checked").length+"』张图片！")) {
+            // 发送表单请求 转发待处理页面
+            let $processFrom = $('#process_from');
+            let $imgs_input = $processFrom.find("input:eq(0)");
+            $imgs_input.attr("value", imgsList);
+            $processFrom.submit();
+        }
+    });
 
 </script>
 </html>

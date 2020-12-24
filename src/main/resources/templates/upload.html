@@ -17,18 +17,21 @@
         <input id="submit_btn" type="button" value="上传"/>
     </form>
     <form method="get" action="/preview">
-        <input type="submit" value="预览">
+        <input type="submit" value="预览"/>
     </form>
+    <input id="clean_btn" type="button" value="清除"/>
+
 
 </body>
 <script src="/static/asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 <script src="/static/asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
-<script inline="javascript">
+<script th:inline="javascript">
 
+    /* 点击 文件上传 按钮发送Ajax请求 */
     $("#submit_btn").click(function () {
-        var formData = new FormData();
-        var fileobjs = $("#file")[0].files;  // $("#file")[0]将jquery对象转换为dom对象，使用jquery的方法.get(0)也可以
-        for (var i = 0; i < fileobjs.length; i++) {
+        let formData = new FormData();
+        let fileobjs = $("#file")[0].files;  // $("#file")[0]将jquery对象转换为dom对象，使用jquery的方法.get(0)也可以
+        for (let i = 0; i < fileobjs.length; i++) {
             formData.append("imgs", fileobjs[i]);  // append方法使用相同键追加元素，最后会被输出为MultipartFile数组
         }
 
@@ -43,6 +46,17 @@
                 alert(res);
             },
             error: function (e) {
+            }
+        })
+    });
+
+    /*  点击 清除 按钮发送Ajax请求  */
+    $("#clean_btn").click(function () {
+        $.ajax({
+            type: 'get',
+            url: "/clean",
+            success: function (res) {
+                alert(res);
             }
         })
     });

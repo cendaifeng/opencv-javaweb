@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.concurrent.ConcurrentSkipListMap;
 
@@ -25,10 +25,19 @@ public class UploadController {
     private static final ConcurrentSkipListMap<String, ArrayList<String>> userSessionMap = new ConcurrentSkipListMap<>();
 
     @GetMapping("/upload")
-    public String upload() {
-        return "jj";
+    public String upload(HttpServletRequest request) {
+        // 设置session有效时间为12小时
+        request.getSession().setMaxInactiveInterval(43200);
+        return "upload";
     }
 
+    /**
+     * 将被上传的文件放在 target/static/users/ 下
+     * 并为每一个文件另重名为一个8位随机字符串
+     * 这里将文件（路径）与用户SessionID用全局跳表关联起来 方便后续以之作为索引去找到服务器磁盘中用户所上传的图片
+     *
+     * @param files 上传的MultipartFile数组
+     */
     @PostMapping("/upload")
     @ResponseBody
     public String upload(@RequestParam("imgs") List<MultipartFile> files, HttpSession session) {
@@ -70,7 +79,7 @@ public class UploadController {
         return "上传失败！";
     }
 
-    @GetMapping
+    @GetMapping("/clean")
     @ResponseBody
     public String cleanUserMap(HttpSession session) {
         String id = session.getId();
@@ -79,6 +88,10 @@ public class UploadController {
         return "已清除用户图片映射";
     }
 
+    /**
+     * 在request域中放入图片路径列表pathList 用以在客户端预览展示
+     * @param model
+     */
     @GetMapping("/preview")
     public String processImgs(HttpSession session, Model model) {
         String id = session.getId();
@@ -89,10 +102,10 @@ public class UploadController {
         ArrayList<String> pathList = new ArrayList<>();
         String filePath = "";
         for (String img : list) {
-            filePath = "/user/"+img;
+            filePath = "/users/"+img;
             pathList.add(filePath);
         }
-        model.addAttribute("pathList",pathList);
+        model.addAttribute("pathList", pathList);
 
         return "preview";
     }
