@@ -19,14 +19,14 @@
         <form id="process_from" action="/process" method="post">
             <input name="imgs" hidden="hidden"/>
             <input name="_method" value="put" hidden="hidden"/>
-            <input id="process_btn" type="button" value="确定"/>
+            <input id="process_btn" type="button" value="处理"/>
         </form>
     </div>
     <!-- 将request域中的图片路径取出展示 -->
-    <div class="d-flex w-25 justify-content-between align-items-center" th:each="path : ${pathList}">
+    <div class="d-flex mb-4 w-25 justify-content-between align-items-center" th:each="path : ${pathList}">
         <!-- 将路径数据暂存在img标签的data中 -->
-        <img class="d-flex" th:src="@{{path}(path=${path})}" height="250" alt="" th:attr="data-path=${path}">
-        <input type='checkbox' class='check_item'/>
+        <img class="d-flex" th:src="@{{path}(path=${path})}" height="175" th:attr="data-path=${path}">
+        <input type='checkbox' class='check_item d-flex'/>
     </div>
 </div>
 
@@ -58,7 +58,7 @@
         });
 
         if ($(".check_item:checked").length < 1) {
-            alert("未选择员工！")
+            alert("未选择图片！")
             return;
         }
         if (confirm("共处理『"+$(".check_item:checked").length+"』张图片！")) {
@@ -69,6 +69,8 @@
             $processFrom.submit();
         }
     });
+
+
 
 </script>
 </html>

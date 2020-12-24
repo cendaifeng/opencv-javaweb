@@ -1,10 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="/static/asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="/static/asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">
+    <title>PROCESS</title>
 </head>
+<style>
+    .w-10 {
+        width: 10%!important;
+    }
+    .w-15 {
+        width: 15%!important;
+    }
+    .w-30 {
+        width: 30%!important;
+    }
+    .w-60 {
+        width: 60%!important;
+    }
+</style>
 <body>
+<div class="d-flex w-100 h-100">
+<!--    <div class="d-flex mb-4 w-25 flex-column justify-content-start">-->
+<!--        <div class="d-flex align-items-center" th:each="path : ${processList}">-->
+<!--            <span class="d-flex" th:text="${path}" th:attr="data-path=${path}"></span>-->
+<!--            <input type='checkbox' class='check_item d-flex'/>-->
+<!--        </div>-->
+<!--    </div>-->
+    <!--  左 图片列表  -->
+    <div class="d-flex mb-4 w-10 justify-content-start">
+        <table border="1px">
+            <tr><th><span>待处理图片列表</span></th></tr>
+            <tr th:each="img : ${processList}">
+                <th>
+                    <span class="imgSpan" th:text="${img}" th:attr="data-imgName=${img}"></span>
+                </th>
+                <th class="hide">
+                    <input type='checkbox' class='check_item'/>
+                </th>
+            </tr>
+        </table>
+    </div>
+    <!--  中 处理预览  -->
+    <div id="carouselExampleIndicators" class="d-flex mb-4 w-60 carousel slide" data-ride="carousel"
+         data-interval="false">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div id="origin_item" class="carousel-item active">
+                <img src="/users/0cd4dcb2.png" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>处理前</h5>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/users/11a39cad.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>处理后</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <!--  右 功能选择  -->
+    <div class="d-flex mb-4 w-30 flex-column align-self-end">
+        <div class="d-flex">
+        <table class=" table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">功能选项</th>
+                <td># 参数 #</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">高斯滤波</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">中值滤波</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">均值滤波</th>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div class="d-flex">
+            <!-- 查看前后变化按钮 -->
+            <input id="cycle" type="button" value="查看变化"/>
+            <!-- 全选图片按钮 -->
+            <input id="checkAll_btn" type="button" value="全选"/>
+            <input id="check_all" type="checkbox" hidden="hidden"/>
+            <!-- 确认跳转到处理页面 -->
+            <form id="process_from" action="/process" method="post">
+                <input name="imgs" hidden="hidden"/>
+                <input name="_method" value="put" hidden="hidden"/>
+                <input id="process_btn" type="button" value="处理"/>
+            </form>
+        </div>
+    </div>
+</div>
 
 </body>
+<script src="/static/asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script src="/static/asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
+<script th:inline="javascript">
+
+    /* 点击图片名显示图片缩略图 */
+    $(".imgSpan").click(function () {
+        // alert($(this).text());
+        let src = '/users/' + $(this).text();
+        $("#origin_item").find("img:first").attr("src", src);
+    })
+
+    /* 查看前后变化按钮 */
+    $("#cycle").click(function () {
+        $(".carousel").carousel('next');
+    })
+
+    /* 全选功能 */
+    let $checkAll = $("#check_all");
+    $("#checkAll_btn").click(function () {
+        $checkAll.prop("checked", !$checkAll.prop("checked"));
+        // 对于原生 dom，attr 获取自定义的值，prop 获取 dom 原生属性的值
+        $(".check_item").prop("checked", $checkAll.prop("checked"));
+    });
+    // check_item 关联 check_all
+    $(document).on("click", ".check_item", function() {
+        let flag = $(".check_item:checked").length == $(".check_item").length;
+        $checkAll.prop("checked", flag);
+    });
+
+    /* 确认待处理图片 */
+    $("#process_btn").click(function () {
+
+        let imgsList = new Array();
+        $.each($(".check_item:checked"), function () {
+            let src = $(this).parent("div").find("img:first").data("imgName");
+            imgsList.push(src);
+        });
+
+        if ($(".check_item:checked").length < 1) {
+            alert("未选择图片！");
+            return;
+        }
+        if (confirm("共处理『"+$(".check_item:checked").length+"』张图片！")) {
+            // 发送表单请求 转发待处理页面
+            let $processFrom = $('#process_from');
+            let $imgs_input = $processFrom.find("input:eq(0)");
+            $imgs_input.attr("value", imgsList);
+            $processFrom.submit();
+        }
+    });
+
+</script>
 </html>

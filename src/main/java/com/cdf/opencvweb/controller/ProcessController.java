@@ -1,6 +1,8 @@
 package com.cdf.opencvweb.controller;
 
 import com.cdf.opencvweb.service.ProcessService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 @Controller
 public class ProcessController {
@@ -17,16 +20,21 @@ public class ProcessController {
     @Autowired
     ProcessService processService;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
+
+    private static final ConcurrentSkipListMap<String, ArrayList<String>> processMap = new ConcurrentSkipListMap<>();
+
     @PutMapping("/process")
     public String process(@RequestParam("imgs") List<String> imgsList, Model model) {
         System.out.println(imgsList);
 
-        ArrayList<String> pathList = new ArrayList<>();
-        String filePath = "";
+        ArrayList<String> list = new ArrayList<>();
+        String s = "";
         for (String img : imgsList) {
-            pathList.add(img);
+            s = img.split("/")[2];
+            list.add(s);
         }
-        model.addAttribute("processList", pathList);
+        model.addAttribute("processList", list);
 
         return "process";
     }
@@ -52,6 +60,13 @@ public class ProcessController {
         modelMap.remove("pathList");
         modelMap.addAttribute("pathList", processList);
         return "成功";
+    }
+
+    @GetMapping("/zip")
+    @ResponseBody
+    public String zipImg(@RequestParam("img") String img){
+
+        return "";
     }
 
     @GetMapping("/pResult")
