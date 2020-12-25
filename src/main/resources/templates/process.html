@@ -53,15 +53,15 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         </ol>
         <div class="carousel-inner">
-            <div id="origin_item" class="carousel-item active">
+            <div id="origin_item" class="carousel-item">
                 <img src="/users/0cd4dcb2.png" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>处理前</h5>
                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="/users/11a39cad.jpg" class="d-block w-100" alt="...">
+            <div id="disposed_item" class="carousel-item active">
+                <img src="/img/undisposed.png" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>处理后</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -91,7 +91,9 @@
             <tbody>
             <tr>
                 <th scope="row">高斯滤波</th>
-                <td></td>
+                <td>
+
+                </td>
             </tr>
             <tr>
                 <th scope="row">中值滤波</th>
@@ -111,13 +113,21 @@
             <!-- 全选图片按钮 -->
             <input id="checkAll_btn" type="button" value="全选"/>
             <input id="check_all" type="checkbox" hidden="hidden"/>
-            <!-- 确认跳转到处理页面 -->
+            <!-- 动态处理 -->
             <form id="process_from" action="/process" method="post">
                 <input name="imgs" hidden="hidden"/>
-                <input name="_method" value="put" hidden="hidden"/>
                 <input id="process_btn" type="button" value="处理"/>
             </form>
+            <!-- 打包下载 -->
+            <input id="download_btn" type="button" value="下载"/>
+            <!-- 跳转到下一个处理页面 -->
+            <form id="next_process_from" action="/process" method="post">
+                <input name="imgs" hidden="hidden"/>
+                <input name="_method" value="put" hidden="hidden"/>
+                <input id="next_process_btn" type="button" value="进一步处理"/>
+            </form>
         </div>
+
     </div>
 </div>
 
@@ -131,6 +141,31 @@
         // alert($(this).text());
         let src = '/users/' + $(this).text();
         $("#origin_item").find("img:first").attr("src", src);
+        if ($(this).hasAttribute("disposed")) {
+            let dSrc = '/out/' + $(this).text();
+            $("#disposed_item").find("img:first").attr("src", src);
+        } else if ($(this).hasAttribute("zip_disposed")) {
+            let dSrc = '/zip_out/' + $(this).text();
+            $("#disposed_item").find("img:first").attr("src", src);
+        } else {
+            // 发送Ajax异步请求 预览处理效果
+            $.ajax({
+                type: 'post',
+                url: "/zip",
+                data: {
+                    "img" : $(this).text(),
+                    "method" : ,
+                    "param" :
+                },
+                success: function (res) {
+                    alert(res);
+                    // 向所有的 imgSpan 加入已处理属性
+                    $(".imgSpan").setAttribute("zip_disposed", "ture");
+                },
+                error: function (e) {
+                }
+            })
+        }
     })
 
     /* 查看前后变化按钮 */
@@ -151,22 +186,64 @@
         $checkAll.prop("checked", flag);
     });
 
-    /* 确认待处理图片 */
+    /* 处理图片 */
     $("#process_btn").click(function () {
 
         let imgsList = new Array();
-        $.each($(".check_item:checked"), function () {
+        $.each($(".check_item"), function () {
             let src = $(this).parent("div").find("img:first").data("imgName");
-            imgsList.push(src);
+            // 这里需要判断 从/users还是/out中取
+            imgsList.push("/users/"+src);
         });
 
-        if ($(".check_item:checked").length < 1) {
+        if ($(".check_item").length < 1) {
             alert("未选择图片！");
             return;
         }
-        if (confirm("共处理『"+$(".check_item:checked").length+"』张图片！")) {
+        if (confirm("共处理『"+$(".check_item").length+"』张图片！")) {
             // 发送表单请求 转发待处理页面
             let $processFrom = $('#process_from');
+            let $imgs_input = $processFrom.find("input:eq(0)");
+            $imgs_input.attr("value", imgsList);
+            $processFrom.submit();
+
+            // 发送Ajax异步请求 处理图片
+            $.ajax({
+                type: 'post',
+                url: "/process",
+                data: {
+                    "imgs" : imgsList.serialize(),  // 要求该文件名带上路径前缀
+                    "method" : ,
+                    "param" :
+                },
+                success: function (res) {
+                    alert(res);
+                    // 向所有的 imgSpan 加入已处理属性
+                    $(".imgSpan").setAttribute("disposed", "ture");
+                },
+                error: function (e) {
+                }
+            })
+        }
+    });
+
+    /* 确认待处理图片 */
+    $("#next_process_btn").click(function () {
+
+        let imgsList = new Array();
+        $.each($(".check_item"), function () {
+            let src = $(this).parent("div").find("img:first").data("imgName");
+            // 配合 /process-PUT 控制器
+            imgsList.push("//"+src);
+        });
+
+        if ($(".check_item").length < 1) {
+            alert("未选择图片！")
+            return;
+        }
+        if (confirm("共处理『"+$(".check_item").length+"』张图片！")) {
+            // 发送表单请求 转发待处理页面
+            let $processFrom = $('#next_process_from');
             let $imgs_input = $processFrom.find("input:eq(0)");
             $imgs_input.attr("value", imgsList);
             $processFrom.submit();

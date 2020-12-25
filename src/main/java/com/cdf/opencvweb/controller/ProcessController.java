@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 public class ProcessController {
@@ -26,8 +28,6 @@ public class ProcessController {
 
     @PutMapping("/process")
     public String process(@RequestParam("imgs") List<String> imgsList, Model model) {
-        System.out.println(imgsList);
-
         ArrayList<String> list = new ArrayList<>();
         String s = "";
         for (String img : imgsList) {
@@ -46,20 +46,20 @@ public class ProcessController {
      */
     @PostMapping("/process")
     @ResponseBody
-    public String process(@RequestParam("method") String method,
-                          ModelMap modelMap) {
-        modelMap.getAttribute("pathList");
-        String pathList = "";
-        if (pathList == null) {
+    public String process(@RequestParam("imgs") List<String> imgsList,
+                          @RequestParam("method") String method,
+                          @RequestParam("param") Double param) {
+
+        if (imgsList == null)
             return "未有照片选中";
-        }
-        ArrayList<String> processList = processService.prxocess(pathList, method);
-        if (processList == null) {
-            return "处理出错";
-        }
-        modelMap.remove("pathList");
-        modelMap.addAttribute("pathList", processList);
-        return "成功";
+        if (method == null || param == null)
+            return "处理参数错误";
+
+        List<String> collect = imgsList.parallelStream().map(x -> {
+            return processService.process(x, method, param);
+        }).collect(Collectors.toList());
+
+        return "处理成功";
     }
 
     @GetMapping("/zip")

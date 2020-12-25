@@ -10,14 +10,14 @@ import static com.cdf.opencvweb.utils.FileUtils.getFileName;
  * 图像滤波类 Demo
  * 调用 opencv 接口函数: blur, GaussianBlur, medianBlur, bilateralFilter
  */
-public class Filter2d {
+public class OpencvProcess {
     /* 默认输入 */
     private static String filePath = "./storage/";
     private static String outputPath = "./storage/output/";
-    private String fileName = "img-02.jpg";
-    private double kernelSize = 5;
+    private static String fileName = "img-02.jpg";
+    private static double kernelSize = 5;
 
-    public Filter2d() {}
+    public OpencvProcess() {}
 
     /**
      * 归一化块滤波器 Normalized Box Filter
@@ -49,12 +49,12 @@ public class Filter2d {
     /**
      * 高斯滤波器 (Gaussian Filter)
      */
-    public void GaussianFilter(String fileName, double kernelSize) {
+    public static void GaussianFilter(String fileName, double kernelSize) {
         if (fileName == null) {
-            fileName = this.fileName;
+            fileName = OpencvProcess.fileName;
         }
         if (kernelSize == -1) {
-            kernelSize = this.kernelSize;
+            kernelSize = OpencvProcess.kernelSize;
         }
         String uri_in = filePath.concat(fileName);
         // 输入源图像
