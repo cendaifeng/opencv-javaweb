@@ -74,10 +74,9 @@ public class OpencvProcess {
             String outputPath = classPath.concat("static/out/");
             // 输入源图像
             Mat src = Imgcodecs.imread(filePath, Imgcodecs.IMREAD_COLOR);
-            if( src.empty() ) {
+            if( src.empty() )
                 LOGGER.warn("Error opening image");
-//                System.exit(-1);
-            }
+
             // 准备一个与输入图像size和type一样的副本
             Mat dst = src.clone();
             // 卷积核大小
