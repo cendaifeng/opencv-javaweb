@@ -23,7 +23,8 @@ public class ProcessService {
 
     /**
      * 函数列表：
-     * NormalizedBox 均值滤波
+     * NormalizedBoxFilter 均值滤波
+     * medianBlurFilter 中值滤波
      * GaussianFilter 高斯滤波
      * @param img 文件名，需要带上路径前缀
      * @param method
@@ -32,8 +33,8 @@ public class ProcessService {
      */
     public String process(String img, String method, double param) {
         try {
+
             String classPath = ResourceUtils.getURL("classpath:").getPath();
-            String imgPath = classPath + "static" + img;
             // 创建输出文件夹
             String outFilePath = classPath + "static/out/";
             File fp = new File(outFilePath);
@@ -47,13 +48,13 @@ public class ProcessService {
 //                    m.invoke(null, imgPath, param);
             long l = System.currentTimeMillis();
             Method mtd = OpencvProcess.class.getMethod(method, String.class, double.class);
-            mtd.invoke(null, imgPath, param);
+            mtd.invoke(null, img, param);
             long processTime = System.currentTimeMillis() - l;
             LOGGER.info("处理完成 " + method + " : " + processTime);
 
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return img;
+        return "/out/"+img.split("/")[2];
     }
 }

@@ -90,17 +90,47 @@
             </thead>
             <tbody>
             <tr>
-                <th scope="row">高斯滤波</th>
+                <th scope="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="method" id="radios1" value="GaussianFilter">
+                        <label class="form-check-label" for="radios1">
+                            高斯滤波 GaussianFilter
+                        </label>
+                    </div>
+                </th>
                 <td>
-
+                    <select class="custom-select" id="GaussianFilter" required>  // 若radio被选中js添加is-invalid类型 required
+                        <option selected disabled value="">kernelSize</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="7">7</option>
+                        <option value="">...</option>  // 弹出其他选框
+                    </select>
+<!--                    <div class="invalid-feedback">-->
+<!--                        Please select a valid param.-->
+<!--                    </div>-->
                 </td>
             </tr>
             <tr>
-                <th scope="row">中值滤波</th>
+                <th scope="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="method" id="radios2" value="normalizedBoxFilter">
+                        <label class="form-check-label" for="radios2">
+                            中值滤波 normalizedBoxFilter
+                        </label>
+                    </div>
+                </th>
                 <td></td>
             </tr>
             <tr>
-                <th scope="row">均值滤波</th>
+                <th scope="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="method" id="radios3" value="medianBlurFilter">
+                        <label class="form-check-label" for="radios3">
+                            均值滤波 medianBlurFilter
+                        </label>
+                    </div>
+                </th>
                 <td></td>
             </tr>
             </tbody>
@@ -147,25 +177,26 @@
         } else if ($(this).hasAttribute("zip_disposed")) {
             let dSrc = '/zip_out/' + $(this).text();
             $("#disposed_item").find("img:first").attr("src", src);
-        } else {
-            // 发送Ajax异步请求 预览处理效果
-            $.ajax({
-                type: 'post',
-                url: "/zip",
-                data: {
-                    "img" : $(this).text(),
-                    "method" : ,
-                    "param" :
-                },
-                success: function (res) {
-                    alert(res);
-                    // 向所有的 imgSpan 加入已处理属性
-                    $(".imgSpan").setAttribute("zip_disposed", "ture");
-                },
-                error: function (e) {
-                }
-            })
         }
+        // else {
+        //     // 发送Ajax异步请求 预览处理效果
+        //     $.ajax({
+        //         type: 'post',
+        //         url: "/zip",
+        //         data: {
+        //             "img" : $(this).text(),
+        //             "method" : ,
+        //             "param" :
+        //         },
+        //         success: function (res) {
+        //             alert(res);
+        //             // 向所有的 imgSpan 加入已处理属性
+        //             $(".imgSpan").setAttribute("zip_disposed", "ture");
+        //         },
+        //         error: function (e) {
+        //         }
+        //     })
+        // }
     })
 
     /* 查看前后变化按钮 */
@@ -189,9 +220,9 @@
     /* 处理图片 */
     $("#process_btn").click(function () {
 
-        let imgsList = new Array();
-        $.each($(".check_item"), function () {
-            let src = $(this).parent("div").find("img:first").data("imgName");
+        let imgsList = [];
+        $.each($(".imgSpan"), function () {
+            let src = $(this).attr("data-imgName");  // 不知道为什么 .data("imgName") 取不了
             // 这里需要判断 从/users还是/out中取
             imgsList.push("/users/"+src);
         });
@@ -201,21 +232,18 @@
             return;
         }
         if (confirm("共处理『"+$(".check_item").length+"』张图片！")) {
-            // 发送表单请求 转发待处理页面
-            let $processFrom = $('#process_from');
-            let $imgs_input = $processFrom.find("input:eq(0)");
-            $imgs_input.attr("value", imgsList);
-            $processFrom.submit();
-
+            // 选中的处理方法名
+            let method_checked = $(".form-check-input[name='method']:checked").val();
             // 发送Ajax异步请求 处理图片
             $.ajax({
                 type: 'post',
                 url: "/process",
                 data: {
-                    "imgs" : imgsList.serialize(),  // 要求该文件名带上路径前缀
-                    "method" : ,
-                    "param" :
+                    "imgs" : imgsList,  // 要求该文件名带上路径前缀
+                    "method" : method_checked,
+                    "param" : $("#"+method_checked).val()  // 不用额外选择属性或类型
                 },
+                traditional:true,
                 success: function (res) {
                     alert(res);
                     // 向所有的 imgSpan 加入已处理属性
@@ -231,8 +259,8 @@
     $("#next_process_btn").click(function () {
 
         let imgsList = new Array();
-        $.each($(".check_item"), function () {
-            let src = $(this).parent("div").find("img:first").data("imgName");
+        $.each($(".imgSpan"), function () {
+            let src = $(this).attr("data-imgName");
             // 配合 /process-PUT 控制器
             imgsList.push("//"+src);
         });
@@ -241,7 +269,7 @@
             alert("未选择图片！")
             return;
         }
-        if (confirm("共处理『"+$(".check_item").length+"』张图片！")) {
+        if (confirm("继续处理『"+$(".check_item").length+"』张图片")) {
             // 发送表单请求 转发待处理页面
             let $processFrom = $('#next_process_from');
             let $imgs_input = $processFrom.find("input:eq(0)");
