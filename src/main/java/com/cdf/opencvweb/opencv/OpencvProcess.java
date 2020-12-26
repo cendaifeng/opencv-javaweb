@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 
+import java.io.FileNotFoundException;
+
 
 /**
  * 图像滤波类 Demo
@@ -19,12 +21,17 @@ public class OpencvProcess {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
+    private static String classPath;
+
+    static { try {
+        classPath = ResourceUtils.getURL("classpath:").getPath().substring(1);
+    } catch (FileNotFoundException e) { e.printStackTrace(); } }
+
     /**
      * 归一化块滤波器 (normalized box filter)
      */
     public static void normalizedBoxFilter(String img, double kernelSize) {
         try {
-            String classPath = ResourceUtils.getURL("classpath:").getPath().substring(1);
             String filePath = classPath.concat("static").concat(img);
             String outputPath = classPath.concat("static/out/");
             Mat src = Imgcodecs.imread(filePath, Imgcodecs.IMREAD_COLOR);
@@ -47,7 +54,6 @@ public class OpencvProcess {
      */
     public static void medianBlurFilter(String img, double kernelSize) {
         try {
-            String classPath = ResourceUtils.getURL("classpath:").getPath().substring(1);
             String filePath = classPath.concat("static").concat(img);
             String outputPath = classPath.concat("static/out/");
             Mat src = Imgcodecs.imread(filePath, Imgcodecs.IMREAD_COLOR);
@@ -69,7 +75,6 @@ public class OpencvProcess {
      */
     public static void GaussianFilter(String img, double kernelSize) {
         try {
-            String classPath = ResourceUtils.getURL("classpath:").getPath().substring(1);
             String filePath = classPath.concat("static").concat(img);
             String outputPath = classPath.concat("static/out/");
             // 输入源图像

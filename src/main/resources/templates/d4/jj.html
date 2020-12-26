@@ -5,57 +5,57 @@
     <title></title>
 </head>
 
-<style type="text/css">
-    .float{
-        float:left;
-        width : 200px;
-        height: 200px;
-        overflow: hidden;
-        border: 1px solid #CCCCCC;
-        border-radius: 10px;
-        padding: 5px;
-        margin: 5px;
-    }
-    img{
-        position: relative;
-    }
-    .result{
-        width: 200px;
-        height: 200px;
-        text-align: center;
-        box-sizing: border-box;
-    }
- 
- 
-    #file_input{
-        display: none;
-    }
- 
- 
-    .delete{
-        width: 200px;
-        height:200px;
-        position: absolute;
-        text-align: center;
-        line-height: 200px;
-        z-index: 10;
-        font-size: 30px;
-        background-color: rgba(255,255,255,0.8);
-        color: #777;
-        opacity: 0;
-        transition-duration: 0.7s;
-        -webkit-transition-duration: 0.7s;
-    }
- 
- 
-    .delete:hover{
-        cursor: pointer;
-        opacity: 1;
-    }
- 
-  
- 
-</style>
+    <style type="text/css">
+        .float{
+            float:left;
+            width : 200px;
+            height: 200px;
+            overflow: hidden;
+            border: 1px solid #CCCCCC;
+            border-radius: 10px;
+            padding: 5px;
+            margin: 5px;
+        }
+        img{
+            position: relative;
+        }
+        .result{
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+
+        #file_input{
+            display: none;
+        }
+
+
+        .delete{
+            width: 200px;
+            height:200px;
+            position: absolute;
+            text-align: center;
+            line-height: 200px;
+            z-index: 10;
+            font-size: 30px;
+            background-color: rgba(255,255,255,0.8);
+            color: #777;
+            opacity: 0;
+            transition-duration: 0.7s;
+            -webkit-transition-duration: 0.7s;
+        }
+
+
+        .delete:hover{
+            cursor: pointer;
+            opacity: 1;
+        }
+
+
+
+    </style>
 
 
 <body background="t5.jpeg" style=" background-repeat:no-repeat ;background-size:100% 120%">
@@ -164,12 +164,12 @@
         	</style>
         	<div class="block">
     <div class="box_big ">
-        <div class="box"><img src="t1.jpeg" /style="height: auto;width: auto;"></div>
-        <div class="box"><img src="t2.jpeg" /style="height: auto;width: auto;"></div>
-        <div class="box"><img src="t3.jpeg" /style="height: auto;width: auto;"></div>
-        <div class="box"><img src="t4.jpeg" /style="height: auto;width: auto;"></div>
-        <div class="box"><img src="t5.jpeg" /style="height: auto;width: auto;"></div>
-        <div class="box"><img src="t1.jpeg" /style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t1.jpeg" style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t2.jpeg" style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t3.jpeg" style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t4.jpeg" style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t5.jpeg" style="height: auto;width: auto;"></div>
+        <div class="box"><img src="t1.jpeg" style="height: auto;width: auto;"></div>
     </div>
     <div class="spot">
         <div class="spot_list">1</div>
@@ -266,7 +266,7 @@
      <td rowspan="1" width="100px">  </td>
     </tr>
     <tr>
-        <td rowspan="4" width="100px" background="22.jpeg" style=" background-repeat:no-repeat ;background-size:100% 120%>
+        <td rowspan="4" width="100px" background="22.jpeg" style=" background-repeat:no-repeat ;background-size:100% 120%">
         
         	
         	<form enctype="multipart/form-data">
@@ -338,6 +338,7 @@
 //设置重新加载时间，2000毫秒
 window.setInterval("slide_photos()",2000);
  </script>
+            </div>
    
         </td>
         <td rowspan="6" colspan="7"  height="600px" bgcolor="blue" style="color: white;"><h1>下</br>
@@ -358,16 +359,7 @@ window.setInterval("slide_photos()",2000);
        
     </tr>
     <tr>
-    	<div>
-    	
-    		</style>
-    		
-    			
-        <td rowspan="6" width="100px" >
-        	 
-        	
-        
-        		
+        <td rowspan="6" width = "100px" >
         </td>
         
     </tr>
@@ -400,11 +392,9 @@ window.setInterval("slide_photos()",2000);
 <h1 align="middle" style="color: black;">请选择您需要的功能（可多选)</h1>
 	<form onsubmit="return false">
 	
-<p> <h2 align="middle" style="color: black;">基础处理调整</p></h2>
+<p> <h2 align="middle" style="color: black;">基础处理调整</h2></p>
 <ul>
-		
 
-	<h4>
      <input type="checkbox" name="box1" id="box1" value="1" onclick="check()">旋转
  
      <select name="text" id="text" disabled="disabled">
@@ -462,7 +452,7 @@ window.setInterval("slide_photos()",2000);
     </p>
 </ul>
 
-<p align="middle"><h2 align="middle" style="color: black;">高级处理调整</p></h2>
+<p align="middle"><h2 align="middle" style="color: black;">高级处理调整</h2></p>
 <ul>
     <p> <input type="checkbox" name="box7" id="box7"  value="layer3" onclick="check()" >图像二值化(低阈值,高阈值)
          <input type="text" id="text6" name="text6" disabled="disabled"/>
@@ -471,7 +461,7 @@ window.setInterval("slide_photos()",2000);
    <input type="checkbox" name="box9" id="box9"  value="layer3" onclick="check()">开闭运算（膨胀与腐蚀）(低阈值 ,高阈值)</p>
    <input type="text" id="text8" name="text8" disabled="disabled"/>
 </ul>
-<p><h2 align="middle" style="color: black;">滤波调整</p></h2>
+<p><h2 align="middle" style="color: black;">滤波调整</h2></p>
 <ul>
     <p> <input type="checkbox" name="box10" id="box10"  value="layer3" onclick="check()">可调参数的高斯滤波
      <select name="text9" id="text9" disabled="disabled" style="width: 150px;">
@@ -499,7 +489,7 @@ window.setInterval("slide_photos()",2000);
      </select>
 </ul>
 
-	<p><h2 align="middle" style="color: black;">检测与提取</p></h2>
+	<p><h2 align="middle" style="color: black;">检测与提取</h2></p>
 	<ul>
     <p> <input type="checkbox" name="checkbox4" value="layer1" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')" >基于不同算子的边缘检测
      <input type="checkbox" name="checkbox4" value="layer2" onclick="singleSelect2parent('checkbox_v2', 'checkbox2')">对象检测

@@ -71,19 +71,4 @@ public class ProcessController {
 
         return "";
     }
-
-    @GetMapping("/pResult")
-    public String processImgs(@RequestParam("resultList") List<String> resultList, Model model) {
-        System.out.println(resultList);
-        if (resultList == null)
-            return "preview";
-
-        String filePath = "";
-        for (String img : resultList) {
-            filePath = "/user/"+img;
-            resultList.add(filePath);
-        }
-        model.addAttribute("pathList",resultList);
-        return "preview";
-    }
 }

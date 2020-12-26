@@ -41,11 +41,11 @@ public class ProcessService {
             if (!fp.exists())
                 fp.mkdir();
 
-            /* 利用反射按函数名调用方法 */
 //            Method[] methods = OpencvProcess.class.getDeclaredMethods();
 //            for (Method m : methods)
 //                if (m.getName() == method)
 //                    m.invoke(null, imgPath, param);
+            /* 利用反射按函数名调用方法 */
             long l = System.currentTimeMillis();
             Method mtd = OpencvProcess.class.getMethod(method, String.class, double.class);
             mtd.invoke(null, img, param);

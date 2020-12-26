@@ -22,6 +22,9 @@
     .w-60 {
         width: 60%!important;
     }
+    .h-10 {
+        height: 10%!important;
+    }
 </style>
 <body>
 <div class="d-flex w-100 h-100">
@@ -31,6 +34,7 @@
 <!--            <input type='checkbox' class='check_item d-flex'/>-->
 <!--        </div>-->
 <!--    </div>-->
+
     <!--  左 图片列表  -->
     <div class="d-flex mb-4 w-10 justify-content-start">
         <table border="1px">
@@ -54,7 +58,7 @@
         </ol>
         <div class="carousel-inner">
             <div id="origin_item" class="carousel-item">
-                <img src="/users/0cd4dcb2.png" class="d-block w-100" alt="...">
+                <img src="" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>处理前</h5>
                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
@@ -79,64 +83,7 @@
     </div>
 
     <!--  右 功能选择  -->
-    <div class="d-flex mb-4 w-30 flex-column align-self-end">
-        <div class="d-flex">
-        <table class=" table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">功能选项</th>
-                <td># 参数 #</td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="method" id="radios1" value="GaussianFilter">
-                        <label class="form-check-label" for="radios1">
-                            高斯滤波 GaussianFilter
-                        </label>
-                    </div>
-                </th>
-                <td>
-                    <select class="custom-select" id="GaussianFilter" required>  // 若radio被选中js添加is-invalid类型 required
-                        <option selected disabled value="">kernelSize</option>
-                        <option value="3">3</option>
-                        <option value="5">5</option>
-                        <option value="7">7</option>
-                        <option value="">...</option>  // 弹出其他选框
-                    </select>
-<!--                    <div class="invalid-feedback">-->
-<!--                        Please select a valid param.-->
-<!--                    </div>-->
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="method" id="radios2" value="normalizedBoxFilter">
-                        <label class="form-check-label" for="radios2">
-                            中值滤波 normalizedBoxFilter
-                        </label>
-                    </div>
-                </th>
-                <td></td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="method" id="radios3" value="medianBlurFilter">
-                        <label class="form-check-label" for="radios3">
-                            均值滤波 medianBlurFilter
-                        </label>
-                    </div>
-                </th>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
-
+    <div class="d-flex mb-4 w-30 flex-column align-self-start">
         <div class="d-flex">
             <!-- 查看前后变化按钮 -->
             <input id="cycle" type="button" value="查看变化"/>
@@ -158,6 +105,236 @@
             </form>
         </div>
 
+        <div class="d-flex">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">功能选项</th>
+                    <td># 参数 #</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios1" value="GaussianFilter">
+                            <label class="form-check-label" for="radios1">
+                                高斯滤波 GaussianFilter
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>  // 若radio被选中js添加is-invalid类型 required
+                            <option selected disabled value="">kernelSize</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                            <option value="">..自定义..</option>  // 弹出其他选框
+                        </select>
+                        <input type="text" id="GaussianFilter" class="cls_input" value="" hidden="hidden">
+                        <!--                    <div class="invalid-feedback">-->
+                        <!--                        Please select a valid param.-->
+                        <!--                    </div>-->
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios2" value="normalizedBoxFilter">
+                            <label class="form-check-label" for="radios2">
+                                中值滤波 normalized
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">kernelSize</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                            <option value="">..自定义..</option>  // 弹出其他选框
+                        </select>
+                        <input type="text" id="normalizedBoxFilter" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios3" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios3">
+                                均值滤波 medianBlur
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">kernelSize</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                            <option value="">..自定义..</option>  // 弹出其他选框
+                        </select>
+                        <input type="text" id="medianBlurFilter" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios4" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios4">
+                                旋转 rotate
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">angle</option>
+                            <option value="90">90度</option>
+                            <option value="180">180度</option>
+                            <option value="270">270度</option>
+                            <option value="">..自定义..</option>
+                        </select>
+                        <input type="text" id="rotate" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios5" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios5">
+                                缩放 resize
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">zoom</option>
+                            <option value="25">25度</option>
+                            <option value="50">50度</option>
+                            <option value="150">150度</option>
+                            <option value="200">200度</option>
+                            <option value="">..自定义..</option>
+                        </select>
+                        <input type="text" id="resize" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios6" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios6">
+                                裁切 trimming
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">x1: y1: x2: y2</option>
+                            <option value="">格式:0-0-500-240(例)</option>
+                        </select>
+                        <input type="text" id="trimming" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios7" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios7">
+                                对比度 contrast
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">level</option>
+                            <option value="-3">-3</option>
+                            <option value="-2">-2</option>
+                            <option value="-1">-1</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="">..自定义..</option>
+                        </select>
+                        <input type="text" id="contrast" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios8" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios8">
+                                曝光度 exposure
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">level</option>
+                            <option value="-3">-3</option>
+                            <option value="-2">-2</option>
+                            <option value="-1">-1</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="">..自定义..</option>
+                        </select>
+                        <input type="text" id="exposure" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios9" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios9">
+                                图像二值化 binaryzation
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">threshold</option>
+                            <option value="">..自定义..</option>
+                        </select>
+                        <input type="text" id="binaryzation" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios10" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios10">
+                                色彩抖动 colorJittering
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">param</option>
+                            <option value="">..自定义..</option>
+                        </select>
+                        <input type="text" id="colorJittering" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="method" id="radios11" value="medianBlurFilter">
+                            <label class="form-check-label" for="radios11">
+                                腐蚀与膨胀 Eroding and Dilating
+                            </label>
+                        </div>
+                    </th>
+                    <td>
+                        <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
+                            <option selected disabled value="">param</option>
+                            <option value="">..自定义..</option>
+                        </select>
+                        <input type="text" id="ErodingDilating" class="cls_input" value="" hidden="hidden">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -165,6 +342,19 @@
 <script src="/static/asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 <script src="/static/asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}"></script>
 <script th:inline="javascript">
+
+    /* 控制下拉列表的自定义操作 */
+    function selectOnChangeFunc(thisSpan) {
+        // let idInput = document.getElementsByClassName('id_input');
+        // let idSelect = document.getElementsByClassName('id_select');
+        let idInput = $(thisSpan).parents("td").find("input:first")[0];
+        let idSelect = thisSpan;
+        idInput.value = idSelect.options[idSelect.selectedIndex].value;
+        if (idSelect.selectedIndex != idSelect.childElementCount-1)
+            idInput.setAttribute("hidden", "hidden");
+        else if (idInput.hasAttribute("hidden"))
+            idInput.removeAttribute("hidden");
+    }
 
     /* 点击图片名显示图片缩略图 */
     $(".imgSpan").click(function () {
@@ -255,7 +445,7 @@
         }
     });
 
-    /* 确认待处理图片 */
+    /* 确认进一步处理图片 */
     $("#next_process_btn").click(function () {
 
         let imgsList = new Array();
