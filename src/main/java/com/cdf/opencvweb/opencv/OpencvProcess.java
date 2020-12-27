@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 
 
 /**
- * 图像滤波类 Demo
+ * 图像处理类
  * 调用 opencv 接口函数: blur, GaussianBlur, medianBlur, bilateralFilter
  */
 public class OpencvProcess {
@@ -35,10 +35,9 @@ public class OpencvProcess {
             String filePath = classPath.concat("static").concat(img);
             String outputPath = classPath.concat("static/out/");
             Mat src = Imgcodecs.imread(filePath, Imgcodecs.IMREAD_COLOR);
-            if( src.empty() ) {
+            if( src.empty() )
                 LOGGER.warn("Error opening image");
-                System.exit(-1);
-            }
+
             Mat dst = src.clone();
             Size ksize = new Size(kernelSize, kernelSize);
             // 归一化块滤波
@@ -57,10 +56,9 @@ public class OpencvProcess {
             String filePath = classPath.concat("static").concat(img);
             String outputPath = classPath.concat("static/out/");
             Mat src = Imgcodecs.imread(filePath, Imgcodecs.IMREAD_COLOR);
-            if( src.empty() ) {
+            if( src.empty() )
                 LOGGER.warn("Error opening image");
-                System.exit(-1);
-            }
+
             Mat dst = src.clone();
             // 均值滤波
             Imgproc.medianBlur(src, dst, (int)kernelSize);  // 简单强转

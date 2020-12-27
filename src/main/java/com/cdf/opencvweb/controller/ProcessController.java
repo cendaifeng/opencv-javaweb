@@ -40,11 +40,9 @@ public class ProcessController {
     }
 
     /**
-     * 在预览界面选定图片后点击“处理”按钮执行
+     * 在图片处理工作界面选定图片后点击“处理”按钮执行
      * 前端 Ajax 请求
      * @param imgsList 文件名列表，需要带上路径前缀
-     * @param method
-     * @param param
      * @return
      */
     @PostMapping("/process")

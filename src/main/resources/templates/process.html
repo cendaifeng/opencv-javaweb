@@ -53,8 +53,8 @@
     <div id="carouselExampleIndicators" class="d-flex mb-4 w-60 carousel slide" data-ride="carousel"
          data-interval="false">
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="0"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active"></li>
         </ol>
         <div class="carousel-inner">
             <div id="origin_item" class="carousel-item">
@@ -345,8 +345,6 @@
 
     /* 控制下拉列表的自定义操作 */
     function selectOnChangeFunc(thisSpan) {
-        // let idInput = document.getElementsByClassName('id_input');
-        // let idSelect = document.getElementsByClassName('id_select');
         let idInput = $(thisSpan).parents("td").find("input:first")[0];
         let idSelect = thisSpan;
         idInput.value = idSelect.options[idSelect.selectedIndex].value;
