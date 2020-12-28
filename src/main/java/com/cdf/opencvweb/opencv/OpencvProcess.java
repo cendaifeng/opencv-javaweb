@@ -30,7 +30,7 @@ public class OpencvProcess {
     /**
      * 归一化块滤波器 (normalized box filter)
      */
-    public static void normalizedBoxFilter(String img, double kernelSize) {
+    public static boolean normalizedBoxFilter(String img, double kernelSize) {
         try {
             String filePath = classPath.concat("static").concat(img);
             String outputPath = classPath.concat("static/out/");
@@ -45,13 +45,15 @@ public class OpencvProcess {
             Imgcodecs.imwrite( outputPath.concat(img.split("/")[2]), dst );
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
+            return false;
         }
+        return true;
     }
 
     /**
      * 均值滤波器 (medianBlur filter)
      */
-    public static void medianBlurFilter(String img, double kernelSize) {
+    public static boolean medianBlurFilter(String img, double kernelSize) {
         try {
             String filePath = classPath.concat("static").concat(img);
             String outputPath = classPath.concat("static/out/");
@@ -65,13 +67,15 @@ public class OpencvProcess {
             Imgcodecs.imwrite( outputPath.concat(img.split("/")[2]), dst );
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
+            return false;
         }
+        return true;
     }
 
     /**
      * 高斯滤波器 (Gaussian filter)
      */
-    public static void GaussianFilter(String img, double kernelSize) {
+    public static boolean GaussianFilter(String img, double kernelSize) {
         try {
             String filePath = classPath.concat("static").concat(img);
             String outputPath = classPath.concat("static/out/");
@@ -90,6 +94,8 @@ public class OpencvProcess {
             Imgcodecs.imwrite( outputPath.concat(img.split("/")[2]), dst );
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
+            return false;
         }
+        return true;
     }
 }

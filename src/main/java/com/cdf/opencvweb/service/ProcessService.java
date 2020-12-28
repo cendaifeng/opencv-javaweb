@@ -31,9 +31,9 @@ public class ProcessService {
      * @param param
      * @return
      */
-    public String process(String img, String method, double param) {
+    public boolean process(String img, String method, double param) {
+        boolean success = false;
         try {
-
             String classPath = ResourceUtils.getURL("classpath:").getPath();
             // 创建输出文件夹
             String outFilePath = classPath + "static/out/";
@@ -48,13 +48,12 @@ public class ProcessService {
             /* 利用反射按函数名调用方法 */
             long l = System.currentTimeMillis();
             Method mtd = OpencvProcess.class.getMethod(method, String.class, double.class);
-            mtd.invoke(null, img, param);
+            success = (boolean)mtd.invoke(null, img, param);
             long processTime = System.currentTimeMillis() - l;
             LOGGER.info("处理完成 " + method + " : " + processTime);
-
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return "/out/"+img.split("/")[2];
+        return success;
     }
 }

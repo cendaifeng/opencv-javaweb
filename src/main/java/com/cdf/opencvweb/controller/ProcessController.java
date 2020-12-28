@@ -28,13 +28,19 @@ public class ProcessController {
 
     @PutMapping("/process")
     public String process(@RequestParam("imgs") List<String> imgsList, Model model) {
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> processList = new ArrayList<>();
         String s = "";
         for (String img : imgsList) {
             s = img.split("/")[2];
-            list.add(s);
+            processList.add(s);
         }
-        model.addAttribute("processList", list);
+        model.addAttribute("processList", processList);
+        // 若是第一次进入process页面则是/users路径，或是再次进入则是/out路径
+        if (imgsList.get(0).split("/")[1].equals("users")) {
+            model.addAttribute("firstEnter", true);
+        } else {
+            model.addAttribute("firstEnter", false);
+        }
 
         return "process";
     }
@@ -56,16 +62,16 @@ public class ProcessController {
         if (method == null || param == null)
             return "处理参数错误";
 
-        List<String> collect = imgsList.parallelStream().map(x -> {
+        boolean b = imgsList.parallelStream().map(x -> {
             return processService.process(x, method, param);
-        }).collect(Collectors.toList());
+        }).allMatch(x -> true);
 
-        return "处理成功";
+        return b ? "处理成功" : "处理遇到错误";
     }
 
-    @GetMapping("/zip")
+    @GetMapping("/pre")
     @ResponseBody
-    public String zipImg(@RequestParam("img") String img){
+    public String preImg(@RequestParam("img") String img){
 
         return "";
     }

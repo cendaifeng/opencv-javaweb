@@ -27,6 +27,8 @@
     }
 </style>
 <body>
+<input type="text" id="firstEnter" hidden="hidden" th:attr="data-firstEnter=${firstEnter}">
+<input type="text" id="allDisposed" hidden="hidden">
 <div class="d-flex w-100 h-100">
 <!--    <div class="d-flex mb-4 w-25 flex-column justify-content-start">-->
 <!--        <div class="d-flex align-items-center" th:each="path : ${processList}">-->
@@ -357,20 +359,29 @@
     /* 点击图片名显示图片缩略图 */
     $(".imgSpan").click(function () {
         // alert($(this).text());
-        let src = '/users/' + $(this).text();
-        $("#origin_item").find("img:first").attr("src", src);
-        if ($(this).hasAttribute("disposed")) {
-            let dSrc = '/out/' + $(this).text();
-            $("#disposed_item").find("img:first").attr("src", src);
-        } else if ($(this).hasAttribute("zip_disposed")) {
-            let dSrc = '/zip_out/' + $(this).text();
-            $("#disposed_item").find("img:first").attr("src", src);
+        let src = "";
+        if ($("#firstEnter").attr("data-firstEnter") == "true") {
+            src = '/users/' + $(this).text();
+        } else {
+            src = '/out/' + $(this).text();
         }
+        $("#origin_item").find("img:first").attr("src", src);
+        if ($(this)[0].hasAttribute("disposed")) {
+            // 如果已处理则展示第二张图片，并将src链接到该图片索引
+            $(".carousel").carousel(1);
+            let dSrc = '/out/' + $(this).text();
+            $("#disposed_item").find("img:last").attr("src", dSrc);
+        } else {
+            // 如果没有被处理则展示第一张图片
+            $(".carousel").carousel(0);
+        }
+
+
         // else {
         //     // 发送Ajax异步请求 预览处理效果
         //     $.ajax({
         //         type: 'post',
-        //         url: "/zip",
+        //         url: "/pre",
         //         data: {
         //             "img" : $(this).text(),
         //             "method" : ,
@@ -412,16 +423,27 @@
         $.each($(".imgSpan"), function () {
             let src = $(this).attr("data-imgName");  // 不知道为什么 .data("imgName") 取不了
             // 这里需要判断 从/users还是/out中取
-            imgsList.push("/users/"+src);
+            if ($("#firstEnter").attr("data-firstEnter") == "true") {
+                imgsList.push("/users/"+src);
+            } else {
+                imgsList.push("/out/"+src);
+            }
         });
 
+        // 选中的处理方法名
+        let method_checked = $(".form-check-input[name='method']:checked").val();
         if ($(".check_item").length < 1) {
             alert("未选择图片！");
             return;
+        } else if (method_checked == null) {
+            alert("未选处理功能");
+            return;
+        } else if ($("#"+method_checked).val() == null) {
+            alert("参数错误");
+            return;
         }
         if (confirm("共处理『"+$(".check_item").length+"』张图片！")) {
-            // 选中的处理方法名
-            let method_checked = $(".form-check-input[name='method']:checked").val();
+
             // 发送Ajax异步请求 处理图片
             $.ajax({
                 type: 'post',
@@ -435,9 +457,11 @@
                 success: function (res) {
                     alert(res);
                     // 向所有的 imgSpan 加入已处理属性
-                    $(".imgSpan").setAttribute("disposed", "ture");
+                    $(".imgSpan").attr("disposed", true);
+                    $("#allDisposed").text("true");
                 },
                 error: function (e) {
+                    alert("处理失败："+e);
                 }
             })
         }
@@ -446,11 +470,16 @@
     /* 确认进一步处理图片 */
     $("#next_process_btn").click(function () {
 
+        if ($("#allDisposed").text() != "true") {
+            alert("未全部进行处理，不能进入下一步");
+            return ;
+        }
+
         let imgsList = new Array();
         $.each($(".imgSpan"), function () {
             let src = $(this).attr("data-imgName");
             // 配合 /process-PUT 控制器
-            imgsList.push("//"+src);
+            imgsList.push("/out/"+src);
         });
 
         if ($(".check_item").length < 1) {
