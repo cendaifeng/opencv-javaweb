@@ -2,24 +2,25 @@ package com.cdf.opencvweb.service;
 
 import com.cdf.opencvweb.controller.UploadController;
 import com.cdf.opencvweb.opencv.OpencvProcess;
+import com.cdf.opencvweb.utils.DownloadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Currency;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class ProcessService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessService.class);
 
     /**
      * 函数列表：
@@ -55,5 +56,50 @@ public class ProcessService {
             LOGGER.error(e.getMessage(), e);
         }
         return success;
+    }
+
+    /**
+     * 下载压缩包业务
+     * @param imgsList
+     * @return
+     */
+    public boolean download(List<String> imgsList, HttpServletResponse response) {
+        if (imgsList == null) return false;
+
+        try {
+            String classPath = ResourceUtils.getURL("classpath:").getPath().substring(1).concat("static");
+
+            // 创建输出文件夹
+            String zipPath = classPath + "/zip/";
+            File fp = new File(zipPath);
+            if (!fp.exists())
+                fp.mkdir();
+
+            List<File> fileList = new ArrayList<>();
+            for (String p : imgsList) {
+                String s = classPath + p;
+                File f = new File(s);
+                if(!f.exists()) continue;
+                fileList.add(f);
+            }
+            if(fileList.size() <= 0) return false;
+
+            //保存的文件名为 当前日期 + 随机数
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String date = sdf.format(new Date());
+            String rand = 2+(int)(Math. random()*(102-2))+"";
+            //创建压缩文件
+            File zipFile = new File(zipPath + date + rand +".rar");
+            if (!zipFile.exists()){
+                zipFile.createNewFile();
+            }
+
+            DownloadUtils.downloads(fileList, zipFile, response);
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+
+        return true;
     }
 }

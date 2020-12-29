@@ -19,7 +19,7 @@ public class OpencvProcess {
 
     public OpencvProcess() {}
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpencvProcess.class);
 
     private static String classPath;
 
@@ -97,5 +97,34 @@ public class OpencvProcess {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 膨胀 dilate
+     */
+    public static boolean dilating(String img, double kernelSize) {
+        try {
+            String filePath = classPath.concat("static").concat(img);
+            String outputPath = classPath.concat("static/out/");
+            // 输入源图像
+            Mat src = Imgcodecs.imread(filePath, Imgcodecs.IMREAD_COLOR);
+            if( src.empty() )
+                LOGGER.warn("Error opening image");
+
+            // 准备一个与输入图像size和type一样的副本
+            Mat dst = src.clone();
+            // 卷积核大小
+            Size ksize = new Size(kernelSize, kernelSize);
+            Mat mat = new Mat(ksize, 0);  // 选择3: CV_16S格式处理
+            // 膨胀
+            Imgproc.dilate(src, dst, mat);
+            // 输入图像
+            Imgcodecs.imwrite( outputPath.concat(img.split("/")[2]), dst );
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            return false;
+        }
+        return true;
+
     }
 }

@@ -1,5 +1,6 @@
 package com.cdf.opencvweb.controller;
 
+import com.cdf.opencvweb.opencv.OpencvProcess;
 import com.cdf.opencvweb.service.ProcessService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -22,7 +25,7 @@ public class ProcessController {
     @Autowired
     ProcessService processService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessController.class);
 
     private static final ConcurrentSkipListMap<String, ArrayList<String>> processMap = new ConcurrentSkipListMap<>();
 
@@ -62,9 +65,12 @@ public class ProcessController {
         if (method == null || param == null)
             return "处理参数错误";
 
+        long l = System.currentTimeMillis();
         boolean b = imgsList.parallelStream().map(x -> {
             return processService.process(x, method, param);
         }).allMatch(x -> true);
+        long processTime = System.currentTimeMillis() - l;
+        LOGGER.info("全部完成 " + method + " : " + processTime);
 
         return b ? "处理成功" : "处理遇到错误";
     }
@@ -72,6 +78,16 @@ public class ProcessController {
     @GetMapping("/pre")
     @ResponseBody
     public String preImg(@RequestParam("img") String img){
+
+        return "";
+    }
+
+    @PostMapping("/download")
+    @ResponseBody
+    public String download(@RequestParam("imgs") List<String> imgsList,
+                           HttpServletResponse response) {
+
+        boolean b = processService.download(imgsList, response);
 
         return "";
     }

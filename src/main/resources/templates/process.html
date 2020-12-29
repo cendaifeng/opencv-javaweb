@@ -41,7 +41,7 @@
     <div class="d-flex mb-4 w-10 justify-content-start">
         <table border="1px">
             <tr><th><span>待处理图片列表</span></th></tr>
-            <tr th:each="img : ${processList}">
+            <tr id="eachImg" th:each="img : ${processList}">
                 <th>
                     <span class="imgSpan" th:text="${img}" th:attr="data-imgName=${img}"></span>
                 </th>
@@ -93,14 +93,17 @@
             <input id="checkAll_btn" type="button" value="全选"/>
             <input id="check_all" type="checkbox" hidden="hidden"/>
             <!-- 动态处理 -->
-            <form id="process_from" action="/process" method="post">
+            <form id="process_form" action="/process" method="post">
                 <input name="imgs" hidden="hidden"/>
                 <input id="process_btn" type="button" value="处理"/>
             </form>
             <!-- 打包下载 -->
-            <input id="download_btn" type="button" value="下载"/>
+            <form id="download_form" action="/download" method="post">
+                <input name="imgs" hidden="hidden"/>
+                <input id="download_btn" type="button" value="下载"/>
+            </form>
             <!-- 跳转到下一个处理页面 -->
-            <form id="next_process_from" action="/process" method="post">
+            <form id="next_process_form" action="/process" method="post">
                 <input name="imgs" hidden="hidden"/>
                 <input name="_method" value="put" hidden="hidden"/>
                 <input id="next_process_btn" type="button" value="进一步处理"/>
@@ -182,7 +185,7 @@
                 <tr>
                     <th scope="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="method" id="radios4" value="medianBlurFilter">
+                            <input class="form-check-input" type="radio" name="method" id="radios4" value="rotate">
                             <label class="form-check-label" for="radios4">
                                 旋转 rotate
                             </label>
@@ -202,7 +205,7 @@
                 <tr>
                     <th scope="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="method" id="radios5" value="medianBlurFilter">
+                            <input class="form-check-input" type="radio" name="method" id="radios5" value="resize">
                             <label class="form-check-label" for="radios5">
                                 缩放 resize
                             </label>
@@ -223,7 +226,7 @@
                 <tr>
                     <th scope="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="method" id="radios6" value="medianBlurFilter">
+                            <input class="form-check-input" type="radio" name="method" id="radios6" value="trimming">
                             <label class="form-check-label" for="radios6">
                                 裁切 trimming
                             </label>
@@ -240,7 +243,7 @@
                 <tr>
                     <th scope="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="method" id="radios7" value="medianBlurFilter">
+                            <input class="form-check-input" type="radio" name="method" id="radios7" value="contrast">
                             <label class="form-check-label" for="radios7">
                                 对比度 contrast
                             </label>
@@ -263,7 +266,7 @@
                 <tr>
                     <th scope="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="method" id="radios8" value="medianBlurFilter">
+                            <input class="form-check-input" type="radio" name="method" id="radios8" value="exposure">
                             <label class="form-check-label" for="radios8">
                                 曝光度 exposure
                             </label>
@@ -286,7 +289,7 @@
                 <tr>
                     <th scope="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="method" id="radios9" value="medianBlurFilter">
+                            <input class="form-check-input" type="radio" name="method" id="radios9" value="binaryzation">
                             <label class="form-check-label" for="radios9">
                                 图像二值化 binaryzation
                             </label>
@@ -303,7 +306,7 @@
                 <tr>
                     <th scope="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="method" id="radios10" value="medianBlurFilter">
+                            <input class="form-check-input" type="radio" name="method" id="radios10" value="colorJittering">
                             <label class="form-check-label" for="radios10">
                                 色彩抖动 colorJittering
                             </label>
@@ -320,18 +323,21 @@
                 <tr>
                     <th scope="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="method" id="radios11" value="medianBlurFilter">
+                            <input class="form-check-input" type="radio" name="method" id="radios11" value="dilating">
                             <label class="form-check-label" for="radios11">
-                                腐蚀与膨胀 Eroding and Dilating
+                                膨胀 Dilating
                             </label>
                         </div>
                     </th>
                     <td>
                         <select class="custom-select" onChange="selectOnChangeFunc(this)" required>
-                            <option selected disabled value="">param</option>
-                            <option value="">..自定义..</option>
+                            <option selected disabled value="">kernel</option>
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                            <option value="">..自定义..</option>  // 弹出其他选框
                         </select>
-                        <input type="text" id="ErodingDilating" class="cls_input" value="" hidden="hidden">
+                        <input type="text" id="dilating" class="cls_input" value="" hidden="hidden">
                     </td>
                 </tr>
                 </tbody>
@@ -459,6 +465,10 @@
                     // 向所有的 imgSpan 加入已处理属性
                     $(".imgSpan").attr("disposed", true);
                     $("#allDisposed").text("true");
+                    // 模拟点击第一张图
+                    let e = document.createEvent("MouseEvents");
+                    e.initEvent("click", true, true);
+                    $("#eachImg").find("span:first")[0].dispatchEvent(e);
                 },
                 error: function (e) {
                     alert("处理失败："+e);
@@ -466,6 +476,45 @@
             })
         }
     });
+
+    /* 打包下载 */
+    $("#download_btn").click(function () {
+        if ($("#allDisposed").text() != "true") {
+            alert("未全部进行处理，不能进入下一步");
+            return ;
+        }
+        if ($(".check_item").length < 1) {
+            alert("未发现可下载图片！");
+            return;
+        }
+        let imgsList = [];
+        $.each($(".imgSpan"), function () {
+            let src = $(this).attr("data-imgName");  // 不知道为什么 .data("imgName") 取不了
+            // 直接取自/out文件夹，若某文件没有找到则忽略该文件
+            imgsList.push("/out/"+src);
+        });
+        // 发送表单请求 下载后端输出流
+        let $downloadFrom = $('#download_form');
+        let $imgs_input = $downloadFrom.find("input:eq(0)");
+        $imgs_input.attr("value", imgsList);
+        $downloadFrom.submit();
+        // 发送Ajax异步请求 打包下载图片
+        // ajax 不能访问磁盘下载文件 安全问题 https://www.cnblogs.com/qlqwjy/p/8971207.html
+        // $.ajax({
+        //     type: 'post',
+        //     url: "/download",
+        //     data: {
+        //         "imgs" : imgsList,  // 要求该文件名带上路径前缀
+        //     },
+        //     traditional:true,
+        //     success: function (res) {
+        //
+        //     },
+        //     error: function (e) {
+        //         alert("处理失败："+e);
+        //     }
+        // })
+    })
 
     /* 确认进一步处理图片 */
     $("#next_process_btn").click(function () {
@@ -488,7 +537,7 @@
         }
         if (confirm("继续处理『"+$(".check_item").length+"』张图片")) {
             // 发送表单请求 转发待处理页面
-            let $processFrom = $('#next_process_from');
+            let $processFrom = $('#next_process_form');
             let $imgs_input = $processFrom.find("input:eq(0)");
             $imgs_input.attr("value", imgsList);
             $processFrom.submit();
